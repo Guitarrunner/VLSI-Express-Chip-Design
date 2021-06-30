@@ -1,0 +1,10 @@
+module AND #(parameter) (input logic a,b
+                         output logic c);
+    assign c => a*b;
+
+#hola me llamo Racso 08080
+endmodule 
+
+
+
+
