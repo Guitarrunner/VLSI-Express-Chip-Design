@@ -1,10 +1,26 @@
-# VLSI-Express-Chip-Design
-## Requirements
-- sudo apt install python3
-- sudo apt-get install python3-tk
-- sudo apt install python3-pip
+# Update Packages
+apt-get -y update
 
-## Installing envyroment vagrant
+# Upgrade Packages
+apt-get -y upgrade
+
+# DPKG
+apt-get install -y dpkg
+
+# GIT
+apt-get install -y git
+
+# GCC
+apt install -y build-essential
+apt-get install -y manpages-dev
+
+# JDK
+#apt-get install -y default-jdk
+apt install -y openjdk-11-jdk
+
+# CURL
+apt-get install -y curl
+
 # BAZEL
 apt install -y curl gnupg
 curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
