@@ -28,6 +28,10 @@ def save_txt():
     text_file.write(text.get(1.0,END))
     text_file.close()
 
+def syntesis_txt():
+    text_file = open("../temp.v",'w')
+    text_file.write(text.get(1.0,END))
+    text_file.close()
 
 #Top Menu
 menu = Menu(root)
@@ -55,6 +59,9 @@ open_button.pack(side=RIGHT,padx=20)
 
 save_button = Button(root,text="Save File",command=save_txt)
 save_button.pack(side=RIGHT,padx=20)
+
+syntesis_button = Button(root,text="Syntesis File",command=syntesis_txt)
+syntesis_button.pack(side=RIGHT,padx=20)
 
 #Main Loop
 root.mainloop()
