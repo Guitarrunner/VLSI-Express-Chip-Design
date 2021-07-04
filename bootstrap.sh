@@ -38,3 +38,6 @@ cd verible
 bazel build -c opt //...
 bazel run -c opt :install -- ~/bin
 bazel test -c opt //...
+
+# SCRIPT
+cp /vagrant_data/script.sh /home/vagrant
