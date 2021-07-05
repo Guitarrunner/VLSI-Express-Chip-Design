@@ -7,12 +7,10 @@ from tkinter import Menu
 from tkinter import filedialog
 from pathlib import Path
 
-
 #GUI
 root = Tk()
 root.title("GUI Mark I")
 root.geometry("1100x650")
-fileName = ""
 
 #Functions
 def clear():
@@ -35,8 +33,9 @@ def save_txt():
     text_file.close()
 
 def syntesis_txt():
-    scriptLine = 'python run.py '
-    os.system(scriptLine+fileName)
+    scriptLine = 'python3 run.py '
+    #print(scriptLine+fileName)
+    os.system("python3 run.py sample8.v")
     #text_file = open("C:/Users/toshi/Downloads/Level up/VLSI-Express-Chip-Design/log.txt",'r')
     text_file= open("log.txt",'r')
     result.insert(END,text_file.read())
