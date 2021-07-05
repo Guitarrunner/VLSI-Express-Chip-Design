@@ -1,3 +1,0 @@
-utils/sample5.v:1:8: syntax error, rejected "not" (syntax-error).
-utils/sample5.v:6:1: syntax error, rejected "assign" (syntax-error).
-utils/sample5.v:8:1: syntax error, rejected "endmodule" (syntax-error).

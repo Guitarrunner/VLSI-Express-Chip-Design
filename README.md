@@ -36,6 +36,9 @@ sh script.sh filename.v
 ```
 After running, a .txt file will be created in which you can see the analysis performed on the document.
 
+## Notas
+- pip install python-vagrant
+- pip3 install fabric
 
 [vagrant]:https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/
