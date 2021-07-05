@@ -17,6 +17,7 @@ def clear():
     text.delete(1.0,END)
 
 def open_txt():
+    result.delete(1.0,END)
     text.delete(1.0,END)
     text_file = filedialog.askopenfilename(title="Open File")
     fileName = text_file
