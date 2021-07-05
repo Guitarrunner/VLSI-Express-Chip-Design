@@ -20,6 +20,7 @@ def open_txt():
     text.delete(1.0,END)
     text_file = filedialog.askopenfilename(title="Open File")
     fileName = text_file
+    ghost.insert(END,text_file) 
     print(text_file)
     modules = open(text_file,'r')
     text.insert(END,modules.read())
@@ -34,9 +35,9 @@ def save_txt():
 
 def syntesis_txt():
     scriptLine = 'python3 run.py '
-    #print(scriptLine+fileName)
-    os.system("python3 run.py sample8.v")
-    #text_file = open("C:/Users/toshi/Downloads/Level up/VLSI-Express-Chip-Design/log.txt",'r')
+    fileName = ghost.get(1.0,END)
+    head, tail = os.path.split(fileName)
+    os.system(scriptLine+tail) 
     text_file= open("log.txt",'r')
     result.insert(END,text_file.read())
     text_file.close()
@@ -60,6 +61,7 @@ text = Text(root, width=30,height=20,font=("Helvetica",16));
 text.grid(row=0,column=0,pady=20, padx=20)
 result = Text(root, width=30,height=20,font=("Helvetica",16));
 result.grid(row=0,column=5,pady=20)
+ghost = Text (root,width=30, height=20,font=("Helvetica",16)); 
 
 clear_button = Button(root,text="Clear Screen",command=clear)
 clear_button.grid(row=5,column=1,pady=20)
