@@ -7,7 +7,7 @@ from tkinter import filedialog
 #GUI
 root = Tk()
 root.title("GUI Mark I")
-root.geometry("900x650")
+root.geometry("900x700")
 
 #Functions
 def clear():
@@ -48,20 +48,21 @@ menu.add_cascade(label="Run", menu=menu_run)
 root.config(menu=menu)
 
 #Text Input
-text = Text(root, width=40,height=20,font=("Helvetica",16));
-text.pack(pady=20)
+text = Text(root, width=20,height=15,font=("Helvetica",16));
+text.pack(side=TOP, anchor=NW, pady=20, padx=30)
+result = Text(root, width=20,height=15,font=("Helvetica",16));
 
 clear_button = Button(root,text="Clear Screan",command=clear)
-clear_button.pack(side=RIGHT,padx=20)
+clear_button.pack(side=BOTTOM, pady=100)
 
 open_button = Button(root,text="Open Text File",command=open_txt)
-open_button.pack(side=RIGHT,padx=20)
+open_button.pack(side=BOTTOM)
 
 save_button = Button(root,text="Save File",command=save_txt)
-save_button.pack(side=RIGHT,padx=20)
+save_button.pack(side=BOTTOM)
 
 syntesis_button = Button(root,text="Syntesis File",command=syntesis_txt)
-syntesis_button.pack(side=RIGHT,padx=20)
+syntesis_button.pack(side=BOTTOM)
 
 #Main Loop
 root.mainloop()
