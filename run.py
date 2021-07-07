@@ -14,8 +14,7 @@ def mytask():
     fileName = sys.argv[1]
     run(scriptLine+fileName)
     print("Exit Vagrant\n")
-    print("-------------------- Analysis Result --------------------")
-    os.system('cat log.txt')
+
 
 # Script
 print("Starting Vagrant\n")
