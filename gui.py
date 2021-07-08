@@ -1,4 +1,4 @@
-#IMPORTS
+# Imports
 import os
 from sys import modules
 from tkinter import *
@@ -6,10 +6,10 @@ from tkinter import Menu
 from tkinter import filedialog
 from pathlib import Path
 
-#GUI
+# Gui
 root = Tk()
 root.title("GUI Mark I")
-root.geometry("1100x650")
+root.geometry("1180x670")
 
 #Functions
 def clear():
@@ -70,7 +70,7 @@ def syntesis_txt():
     result.insert(END,text_file.read())
     text_file.close()
 
-#Top Menu
+# Top Menu
 menu = Menu(root)
 
 menu_file = Menu(menu,tearoff=0)
@@ -84,13 +84,14 @@ menu.add_cascade(label="File", menu=menu_file)
 menu.add_cascade(label="Run", menu=menu_run)
 root.config(menu=menu)
 
-#Text Input
+# Text Input
 text = Text(root, width=30,height=20,font=("Helvetica",16));
 text.grid(row=0,column=0,pady=20, padx=20)
 result = Text(root, width=30,height=20,font=("Helvetica",16));
 result.grid(row=0,column=5,pady=20)
 ghost = Text (root,width=30, height=20,font=("Helvetica",16)); 
 
+# Buttons
 clear_button = Button(root,text="Clear Screen",command=clear)
 clear_button.grid(row=5,column=1,pady=20)
 
@@ -100,9 +101,8 @@ open_button.grid(row=5,column=2,pady=20)
 save_button = Button(root,text="Save File",command=save_txt)
 save_button.grid(row=5, column=3, pady=20)
 
-syntesis_button = Button(root,text="Syntesis File",command=syntesis_txt)
+syntesis_button = Button(root,text="Run",command=syntesis_txt)
 syntesis_button.grid(row=5, column=4 , pady=20)
 
-
-#Main Loop
+# Main Loop
 root.mainloop()
