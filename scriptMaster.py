@@ -58,26 +58,27 @@ class Gui:
         # Text Input
         self.text = Text(root, width=30,height=20,font=("Helvetica",16));
         self.text.grid(row=0,column=0,pady=20, padx=20)
-        self.result = Text(root, width=30,height=20,font=("Helvetica",16));
-        self.result.grid(row=0,column=5,pady=20)
+        self.result = Text(root, width=40,height=20,font=("Helvetica",16));
+        self.result.grid(row=0,column=6,pady=20)
         self.ghost = Text (root,width=30, height=20,font=("Helvetica",16)); 
 
         # Buttons
         self.clear_button = Button(root,text="Clear Screen",command=self.clear)
-        self.clear_button.grid(row=5,column=1,pady=20)
+        self.clear_button.grid(row=2,column=0,pady=20)
 
         self.open_button = Button(root,text="Open Text File",command=self.open_txt)
-        self.open_button.grid(row=5,column=2,pady=20)
+        self.open_button.grid(row=2,column=1,pady=20)
 
         self.save_button = Button(root,text="Save File",command=self.save_txt)
-        self.save_button.grid(row=5, column=3, pady=20)
+        self.save_button.grid(row=2, column=2, pady=20)
 
         self.syntesis_button = Button(root,text="Run",command=self.syntesis_txt)
-        self.syntesis_button.grid(row=5, column=4 , pady=20)
+        self.syntesis_button.grid(row=2, column=3 , pady=20)
 
     # Gui Functions
     def clear(self):
         self.text.delete(1.0,END)
+        self.result.delete(1.0,END)
 
     def open_txt(self):
         self.result.delete(1.0,END)
@@ -138,7 +139,6 @@ if sys.argv[1] == "-g":
     root = Tk()
     gui = Gui(root)
     root.mainloop()
-    
 else:
     # Validations from terminal
     if not(os.path.exists('./utils/'+sys.argv[1])):
