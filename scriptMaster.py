@@ -48,6 +48,32 @@ def runCommand(analysisType,fileName):
     env.warn_only = True
     execute(mytask,command)
 
+def dataTreatment():
+    # Data treatment
+        txt = Path('log.txt').read_text()
+        txt1=txt.split('\n')
+        txt1=txt1[:-1]
+
+        for i in range(len(txt1)):
+            cutter_twopoint = txt1[i].find(":")
+            txt1[i]=txt1[i][cutter_twopoint+1:]
+            cutter_twopoint = txt1[i].find(": ")
+            cutter_parenthesis = 0
+            if txt1[i].find(" [") != -1:
+                cutter_parenthesis =  txt1[i].find(" [")
+            if txt1[i].find(" (syntax-error)")!=-1:
+                cutter_parenthesis = txt1[i].find(" (syntax-error)")
+            
+            temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
+            txt1[i]= [txt1[i][:cutter_twopoint],temp]
+
+        # Update log.txt
+        open("log.txt","w").close()
+        f = open("log.txt","a")
+        for i in range(len(txt1)):
+            f.write(txt1[i][0] + txt1[i][1] + "\n")
+        f.close()
+
 # Interface
 class Gui:
     def __init__(self,root):
@@ -104,30 +130,7 @@ class Gui:
         tail = tail[:-1]
         runCommand("-l",tail)
 
-        # Data treatment
-        txt = Path('log.txt').read_text()
-        txt1=txt.split('\n')
-        txt1=txt1[:-1]
-
-        for i in range(len(txt1)):
-            cutter_twopoint = txt1[i].find(":")
-            txt1[i]=txt1[i][cutter_twopoint+1:]
-            cutter_twopoint = txt1[i].find(": ")
-            cutter_parenthesis = 0
-            if txt1[i].find(" [") != -1:
-                cutter_parenthesis =  txt1[i].find(" [")
-            if txt1[i].find(" (syntax-error)")!=-1:
-                cutter_parenthesis = txt1[i].find(" (syntax-error)")
-            
-            temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
-            txt1[i]= [txt1[i][:cutter_twopoint],temp]
-
-        # Update log.txt
-        open("log.txt","w").close()
-        f = open("log.txt","a")
-        for i in range(len(txt1)):
-            f.write(txt1[i][0] + txt1[i][1] + "\n")
-        f.close()
+        dataTreatment()
 
         text_file= open("log.txt",'r')
         self.result.insert(END,text_file.read())
@@ -150,5 +153,7 @@ else:
             # Command Preparation
             fileName = sys.argv[1]
             analysisType = sys.argv[2]
-            
+
             runCommand(analysisType,fileName)
+
+            dataTreatment()
