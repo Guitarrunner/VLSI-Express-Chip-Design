@@ -8,7 +8,7 @@ from pathlib import Path
 
 # Gui
 root = Tk()
-root.title("GUI Mark I")
+root.title("VLSI")
 root.geometry("1180x670")
 
 #Functions
