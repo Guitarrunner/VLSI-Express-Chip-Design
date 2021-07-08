@@ -4,6 +4,15 @@
 The main objective is to unify different chip development technologies (free software) and provide a solution
 ready to use (Docker / Container).
 
+## Prerequisites
+- Python 3.8.10
+- [python-vagrant] 0.5.15
+- [Fabric3] 1.14.post1
+- [Tkinter] 8.6
+- [vagrant] 2.2.16
+- [virtualbox] 6.1.22 (Windows/MAC)\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1.16 (Linux) 
+
 ## Build
 To build, you need [vagrant] and [virtualbox]
 
@@ -13,33 +22,37 @@ vagrant up
 ```
 
 ## How to use
-First of all, it must be borne in mind that the file to be executed must be in the utils folder found in the repository.
+The tool developed has two ways of using it, one through the interface and the other through the terminal
 
-Inside the repository caprpet a terminal must be opened. Before running any command, it must be verified if the virtual machine is suspended, in that case the following command is run.
-
-```bash
-# In the case virtualbox is suspend
-vagrant reload
-```
-In the event that the virtual machine is not suspended, the following command must be executed to establish the connection.
+### Via interface
+In order to start the interface, you must write the following command:
 
 ```bash
-# Vagrant conection
-vagrant ssh
+# Run Interface
+python3 scriptMaster.py -g
 ```
 
-The next step is to run the script that is responsible for analyzing the code of the selected file. This script uses the [verible] tool, whose main mission is to parse SystemVerilog
+### Via Terminal
+In order to run the analysis, the following command must be used:
 
 ```bash
-# Run Script (Remenber that)
-sh script.sh filename.v
+# Run in Terminal
+python3 scriptMaster.py fileName.v -typeAnalysis
 ```
+The types of analysis available are:
+- -l: check lint's rule
+- -f: formatter your code
+- -s: check sintax
+
+## Functioning
+The program run a script that is responsible for analyzing the code of the selected file. This script uses the [verible] tool, whose main mission is to parse SystemVerilog
+
 After running, a .txt file will be created in which you can see the analysis performed on the document.
 
-## Notas
-- pip install python-vagrant
-- pip3 install fabric
 
 [vagrant]:https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/
 [verible]: https://github.com/google/verible/blob/master/README.md
+[python-vagrant]: https://pypi.org/project/python-vagrant/
+[Fabric3]: https://pypi.org/project/Fabric3/
+[Tkinter]: https://www.tutorialspoint.com/how-to-install-tkinter-in-python
