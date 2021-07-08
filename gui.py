@@ -1,5 +1,4 @@
 #IMPORTS
-#import os
 import os
 from sys import modules
 from tkinter import *
@@ -35,7 +34,7 @@ def save_txt():
     text_file.close()
 
 def syntesis_txt():
-    scriptLine = 'python run.py '
+    scriptLine = 'python3 run.py '
     fileName = ghost.get(1.0,END)
     head, tail = os.path.split(fileName)
     os.system(scriptLine+tail) 

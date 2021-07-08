@@ -1,47 +1,60 @@
-module Corrimiento_izq (A, B, Fin, E, Y);
-    parameter B_W = 4;
+module sample10 (
+    A,
+    B,
+    Fin,
+    E,
+    Y
+);
+  parameter BW = 4;
 
-    input wire [B_W-1:0] A, B;
-    input  Fin;
-    
-    output reg E;
-    output reg [B_W-1:0] Y;
+  input wire [BW-1:0] A, B;
+  input Fin;
 
-    wire [B_W-1:0] C, D, Not1, Or1;
-    
+  output reg E;
+  output reg [BW-1:0] Y;
 
-    
-    assign D = A << B;
+  wire [BW-1:0] C, D, Not1, Or1;
 
-    assign C = {B_W{1'b1}} << B;
-    
-    
-    Not #(.B_W(B_W)) NOT1 (C, 0, 0, Not1);
-    Or #(.B_W(B_W)) OR1 (D, Not1, Or1);
-    
-    always @(*) begin
-   
-	if (Fin)
 
-	 Y = Or1;
-	//Y = D | (~C);
-    
-    	else
-    	
-    	 Y = D;
-    	 
-    end
 
-   always @(*) begin
-   
-	if (B<=4'b0100)
+  assign D = A << B;
 
-	E = A[B_W-B];
-    
-    	else
-    	
-    	E = Fin;
-    	 
-    end
+  assign C = {BW{1'b1}} << B;
+
+
+  Not #(
+      .BW(BW)
+  ) NOT1 (
+      C1,
+      0,
+      0,
+      Not1
+  );
+  Or #(
+      .BW(B_W)
+  ) OR1 (
+      D1,
+      Not1,
+      Or1
+  );
+
+  always_comb begin
+
+    if (Fin) Y = Or1;
+    //Y = D | (~C);
+
+    else
+
+      Y = D;
+
+  end
+
+  always_comb begin
+
+    if (B <= 4'b0100) E = A[BW-B];
+
+    else E = Fin;
+
+  end
 
 endmodule
