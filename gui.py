@@ -37,7 +37,35 @@ def syntesis_txt():
     scriptLine = 'python3 run.py '
     fileName = ghost.get(1.0,END)
     head, tail = os.path.split(fileName)
-    os.system(scriptLine+tail) 
+    tail = tail[:-1]
+    command = scriptLine+tail+" -l"
+    #print(command)
+    os.system(command) 
+
+    # Data treatment
+    txt = Path('log.txt').read_text()
+    txt1=txt.split('\n')
+    txt1=txt1[:-1]
+
+    for i in range(len(txt1)):
+        cutter_twopoint = txt1[i].find(":")
+        txt1[i]=txt1[i][cutter_twopoint+1:]
+        cutter_twopoint = txt1[i].find(": ")
+        cutter_parenthesis = 0
+        if txt1[i].find(" [") != -1:
+            cutter_parenthesis =  txt1[i].find(" [")
+        if txt1[i].find(" (syntax-error)")!=-1:
+            cutter_parenthesis = txt1[i].find(" (syntax-error)")
+        
+        temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
+        txt1[i]= [txt1[i][:cutter_twopoint],temp]
+
+    open("log.txt","w").close()
+    f = open("log.txt","a")
+    for i in range(len(txt1)):
+        f.write(txt1[i][0] + txt1[i][1] + "\n")
+    f.close()
+
     text_file= open("log.txt",'r')
     result.insert(END,text_file.read())
     text_file.close()

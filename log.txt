@@ -1,0 +1,23 @@
+1:8 Declared module does not match the first dot-delimited component of file name: "sample6"
+3:11 Explicitly define a storage type for every parameter and localparam, (B_W).
+16:1 Use spaces, not tabs.
+17:1 Use spaces, not tabs.
+22:5 All generate block statements must have a label
+30:5 All generate block statements must have a label
+40:1 Use 'always_comb' instead of 'always @*'.
+41:1 Use spaces, not tabs.
+41:101 Line length exceeds max: 100; is: 124
+42:1 Use spaces, not tabs.
+42:27 Remove trailing spaces.
+43:1 Use spaces, not tabs.
+44:1 Use spaces, not tabs.
+45:1 Use spaces, not tabs.
+45:12 Remove trailing spaces.
+47:1 Use 'always_comb' instead of 'always @*'.
+48:1 Use spaces, not tabs.
+48:101 Line length exceeds max: 100; is: 147
+49:1 Use spaces, not tabs.
+49:22 Remove trailing spaces.
+50:1 Use spaces, not tabs.
+51:1 Use spaces, not tabs.
+52:1 Use spaces, not tabs.

@@ -20,42 +20,39 @@ def mytask():
     print("\nExit Vagrant\n")
 
 # Script
+
 # Validations
-if len(sys.argv)!= 3:
-    print("[ERROR] The number of parameters is not valid.")
+if not(os.path.exists('./utils/'+sys.argv[1])):
+    print("[ERROR] The indicated file cannot be found.")
 else:
-    if not(os.path.exists('./utils/'+sys.argv[1])):
-        print("[ERROR] The indicated file cannot be found.")
+    if sys.argv[2] not in options:
+        print("[ERROR] The type of analysis entered does not correspond to a valid one.")
     else:
-        if sys.argv[2] not in options:
-            print("[ERROR] The type of analysis entered does not correspond to a valid one.")
-        else:
 
-            # Command Preparation
-            fileName = sys.argv[1]
-            analysisType = sys.argv[2]
-            
-            switcher = {
-                "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
-                "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
-                "-s": "sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax",
-                "-d": "sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff",
-                "-p": "sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project",
-                "-o": "sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate",
-                "-e": "sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"
-            }
+        # Command Preparation
+        fileName = sys.argv[1]
+        analysisType = sys.argv[2]
+        
+        switcher = {
+            "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
+            "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
+            "-s": "sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax",
+            "-d": "sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff",
+            "-p": "sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project",
+            "-o": "sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate",
+            "-e": "sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"
+        }
 
-            filePath = " /vagrant_data/utils/" + fileName
-            toLog = " > log.txt" 
+        filePath = " /vagrant_data/utils/" + fileName
+        toLog = " > log.txt" 
 
-            command = switcher.get(analysisType) + filePath + toLog
+        command = switcher.get(analysisType) + filePath + toLog
 
-            # Vagrant connection
-            print("Starting Vagrant\n")
-            v = vagrant.Vagrant()
-            v.up()
-            env.hosts = [v.user_hostname_port()]
-            env.key_filename = v.keyfile()
-            env.warn_only = True
-            execute(mytask)
-            print("AK7")
+        # Vagrant connection
+        print("Starting Vagrant\n")
+        v = vagrant.Vagrant()
+        v.up()
+        env.hosts = [v.user_hostname_port()]
+        env.key_filename = v.keyfile()
+        env.warn_only = True
+        execute(mytask)

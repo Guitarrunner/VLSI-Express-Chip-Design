@@ -1,10 +1,9 @@
+# Imports
 from pathlib import Path
 
-txt = Path('C:/Users/toshi/Downloads/Level up/VLSI-Express-Chip-Design/log.txt').read_text()
-
-
+# Data treatment
+txt = Path('log.txt').read_text()
 txt1=txt.split('\n')
-
 txt1=txt1[:-1]
 
 for i in range(len(txt1)):
@@ -18,5 +17,11 @@ for i in range(len(txt1)):
     
     temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
     txt1[i]= [txt1[i][:cutter_twopoint],temp]
-    
-print(txt1)
+
+# Overwrite data in log.txt
+open("log.txt","w").close()
+f = open("log.txt","a")
+for i in range(len(txt1)):
+    f.write(txt1[i][0] + txt1[i][1] + "\n")
+f.close()
+
