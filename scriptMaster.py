@@ -22,7 +22,7 @@ def mytask(command):
     with hide('warnings'):
         run(command)
 
-def runCommand(analysisType,fileName):
+def createCommand(analysisType,fileName):
     switcher = {
                 "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
                 "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
@@ -39,7 +39,9 @@ def runCommand(analysisType,fileName):
     # Command flow
     for analysis in analysisType:
         commands.append(switcher.get(analysis) + filePath + " >> log.txt; cp log.txt /vagrant_data/")
+    return commands
 
+def runCommand(commands):
     # Vagrant connection
     print("[INFO] Starting Vagrant\n")
     v = vagrant.Vagrant()
@@ -149,7 +151,8 @@ class Gui:
         fileName = self.ghost.get(1.0,END)
         head, tail = os.path.split(fileName)
         tail = tail[:-1]
-        runCommand(["-l"],tail)
+        command = createCommand(["-l"],tail)
+        runCommand(command)
 
         dataTreatment()
 
@@ -177,5 +180,6 @@ else:
 
             # Command Preparation
             fileName = sys.argv[1]
-            runCommand(analysisType,fileName)
+            commands = createCommand(analysisType,fileName)
+            runCommand(commands)
             dataTreatment()
