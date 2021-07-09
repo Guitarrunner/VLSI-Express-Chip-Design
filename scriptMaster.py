@@ -20,25 +20,29 @@ options = ["-l","-f","-s","-d","-p","-o","-e","-g"]
 def mytask(command):
     with hide('warnings'):
         run(command)
-        run("cp log.txt /vagrant_data/")
-    print("\n[INFO] Exiting Vagrant\n")
 
 def runCommand(analysisType,fileName):
     switcher = {
-                "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
-                "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
-                "-s": "sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax",
-                "-d": "sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff",
-                "-p": "sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project",
-                "-o": "sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate",
-                "-e": "sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"
+                "-l": ["Style Linter","sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint"],
+                "-f": ["Formatter","sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format"],
+                "-s": ["Parser","sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax"],
+                "-d": ["Lexical Diff","sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff"],
+                "-p": ["Project Tool","sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project"],
+                "-o": ["Obfuscator","sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate"],
+                "-e": ["Indexer","sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"]
             }
 
     filePath = " /vagrant_data/utils/" + fileName
-    toLog = " > log.txt" 
+    commands = []
 
-    command = switcher.get(analysisType) + filePath + toLog
-    
+    # Command flow
+    commands.append("sudo rm log.txt")
+    for analysis in analysisType:
+        tool = switcher.get(analysis)
+        commands.append("echo " + tool[0] + " >> log.txt")
+        commands.append(tool[1] + filePath + " >> log.txt")
+    commands.append("cp log.txt /vagrant_data/")
+
     # Vagrant connection
     print("[INFO] Starting Vagrant\n")
     v = vagrant.Vagrant()
@@ -46,7 +50,20 @@ def runCommand(analysisType,fileName):
     env.hosts = [v.user_hostname_port()]
     env.key_filename = v.keyfile()
     env.warn_only = True
-    execute(mytask,command)
+    for command in commands:
+        execute(mytask,command)
+    print("\n[INFO] Exiting Vagrant\n")
+
+def inputValidation():
+    operations = []
+    for i in range(2,len(sys.argv)):
+        if sys.argv[i] not in options:
+            print("[ERROR] The type of analysis " + sys.argv[i] + " does not correspond to a valid one.")
+            return -1
+        else:
+            operations.append(sys.argv[i])
+    return operations
+    
 
 def dataTreatment():
     # Data treatment
@@ -78,8 +95,8 @@ def dataTreatment():
 class Gui:
     def __init__(self,root):
         self.root = root
-        root.title("VLSI")
-        root.geometry("1180x670")
+        self.root.title("VLSI")
+        self.root.geometry("1180x670")
 
         # Text Input
         self.text = Text(root, width=30,height=20,font=("Helvetica",16));
@@ -142,18 +159,19 @@ if sys.argv[1] == "-g":
     root = Tk()
     gui = Gui(root)
     root.mainloop()
+elif sys.argv[1] == "-i":
+    print("[INFO] Enter interactive mode")
+
 else:
     # Validations from terminal
     if not(os.path.exists('./utils/'+sys.argv[1])):
         print("[ERROR] The indicated file cannot be found.")
     else:
-        if sys.argv[2] not in options:
-            print("[ERROR] The type of analysis entered does not correspond to a valid one.")
-        else:
+        # Operations Validation
+        analysisType = inputValidation()
+        if analysisType != -1:
+
             # Command Preparation
             fileName = sys.argv[1]
-            analysisType = sys.argv[2]
-
             runCommand(analysisType,fileName)
-
-            dataTreatment()
+            #dataTreatment()
