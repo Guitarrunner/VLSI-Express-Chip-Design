@@ -24,25 +24,21 @@ def mytask(command):
 
 def runCommand(analysisType,fileName):
     switcher = {
-                "-l": ["Style Linter","sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint"],
-                "-f": ["Formatter","sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format"],
-                "-s": ["Parser","sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax"],
-                "-d": ["Lexical Diff","sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff"],
-                "-p": ["Project Tool","sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project"],
-                "-o": ["Obfuscator","sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate"],
-                "-e": ["Indexer","sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"]
+                "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
+                "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
+                "-s": "sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax",
+                "-d": "sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff",
+                "-p": "sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project",
+                "-o": "sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate",
+                "-e": "sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"
             }
 
     filePath = " /vagrant_data/utils/" + fileName
     commands = []
 
     # Command flow
-    commands.append("sudo rm log.txt")
     for analysis in analysisType:
-        tool = switcher.get(analysis)
-        commands.append("echo " + tool[0] + " >> log.txt")
-        commands.append(tool[1] + filePath + " >> log.txt")
-    commands.append("cp log.txt /vagrant_data/")
+        commands.append(switcher.get(analysis) + filePath + " >> log.txt; cp log.txt /vagrant_data/")
 
     # Vagrant connection
     print("[INFO] Starting Vagrant\n")
@@ -51,10 +47,15 @@ def runCommand(analysisType,fileName):
     env.hosts = [v.user_hostname_port()]
     env.key_filename = v.keyfile()
     env.warn_only = True
+
     # Run work flow
+    execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
     for command in commands:
-        #print(Path("log.txt").stat().st_size)
-        execute(mytask,command)
+        if(Path("log.txt").stat().st_size != 0):
+            print("\n[ERROR] The analysis failed at one point, check the log.txt for errors")
+            break
+        else:
+            execute(mytask,command)
     print("\n[INFO] Exiting Vagrant\n")
 
 def inputValidation():
@@ -177,4 +178,4 @@ else:
             # Command Preparation
             fileName = sys.argv[1]
             runCommand(analysisType,fileName)
-            #dataTreatment()
+            dataTreatment()
