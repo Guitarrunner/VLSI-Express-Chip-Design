@@ -166,8 +166,10 @@ if sys.argv[1] == "-g":
     root = Tk()
     gui = Gui(root)
     root.mainloop()
+
 elif sys.argv[1] == "-i":
-    print("[INFO] Enter interactive mode")
+    print("[INFO] You have just entered interactive mode")
+    os.system("vagrant ssh")
 
 else:
     # Validations from terminal
