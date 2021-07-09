@@ -3,6 +3,7 @@
 
 # Imports
 import os
+from struct import pack
 import vagrant
 import sys
 import os
@@ -50,7 +51,9 @@ def runCommand(analysisType,fileName):
     env.hosts = [v.user_hostname_port()]
     env.key_filename = v.keyfile()
     env.warn_only = True
+    # Run work flow
     for command in commands:
+        #print(Path("log.txt").stat().st_size)
         execute(mytask,command)
     print("\n[INFO] Exiting Vagrant\n")
 
@@ -145,7 +148,7 @@ class Gui:
         fileName = self.ghost.get(1.0,END)
         head, tail = os.path.split(fileName)
         tail = tail[:-1]
-        runCommand("-l",tail)
+        runCommand(["-l"],tail)
 
         dataTreatment()
 
