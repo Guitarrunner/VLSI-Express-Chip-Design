@@ -1,6 +1,8 @@
 # Imports
 from pathlib import Path
 
+from fabric.utils import error
+
 # Data treatment
 txt = Path('log.txt').read_text()
 txt1=txt.split('\n')
@@ -19,9 +21,12 @@ for i in range(len(txt1)):
     txt1[i]= [txt1[i][:cutter_twopoint],temp]
 
 # Overwrite data in log.txt
+errorsCount = 0
 open("log.txt","w").close()
 f = open("log.txt","a")
 for i in range(len(txt1)):
     f.write(txt1[i][0] + txt1[i][1] + "\n")
+    errorsCount += 1
 f.close()
 
+print(errorsCount)

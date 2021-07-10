@@ -54,11 +54,15 @@ def runCommand(commands):
     execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
     for command in commands:
         if(Path("log.txt").stat().st_size != 0):
-            print("\n[ERROR] The analysis failed at one point, check the log.txt for errors")
             break
         else:
             execute(mytask,command)
-    print("\n[INFO] Exiting Vagrant\n")
+    if(Path("log.txt").stat().st_size != 0):
+        print("\n[INFO] Exiting Vagrant\n")
+        print("[ERROR] The analysis failed at one point, check the log.txt for errors")
+
+    else:
+        print("\n[INFO] Exiting Vagrant\n")
 
 def inputValidation():
     operations = []
@@ -90,12 +94,19 @@ def dataTreatment():
             temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
             txt1[i]= [txt1[i][:cutter_twopoint],temp]
 
+        errorCount = 0
+
         # Update log.txt
         open("log.txt","w").close()
         f = open("log.txt","a")
         for i in range(len(txt1)):
             f.write(txt1[i][0] + txt1[i][1] + "\n")
+            errorCount += 1
         f.close()
+
+        # Errors count
+        if errorCount != 0:
+            print("[WARNING] "+ str(errorCount)+" errors found\n")
 
 # Interface
 class Gui:

@@ -1,0 +1,3 @@
+8:13 Explicitly define a storage type for every parameter and localparam, (BW).
+28:7 Use named ports for module instantiation with more than one port
+36:7 Use named ports for module instantiation with more than one port
