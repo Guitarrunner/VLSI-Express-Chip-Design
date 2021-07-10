@@ -195,4 +195,4 @@ else:
             fileName = sys.argv[1]
             commands = createCommand(analysisType,fileName)
             runCommand(commands)
-            dataTreatment()
+            #dataTreatment()

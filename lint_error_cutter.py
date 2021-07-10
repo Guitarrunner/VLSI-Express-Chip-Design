@@ -20,6 +20,28 @@ for i in range(len(txt1)):
     temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
     txt1[i]= [txt1[i][:cutter_twopoint],temp]
 
+# Summary of errors
+errorList = []
+for i in range(len(txt1)):
+    if txt1[i][1] not in errorList:
+        errorList.append(txt1[i][1])
+
+summary = []
+for error in errorList:
+    tmp = 0
+    for i in range(len(txt1)):
+        if txt1[i][1] == error:
+            tmp += 1
+    summary.append([tmp,error])
+
+open("summary.txt","w").close()
+f = open("summary.txt","a")
+for i in range(len(summary)):
+    f.write(str(summary[i][0]) + summary[i][1] + "\n")
+f.close()
+
+print("[INFO] Summary created")
+
 # Overwrite data in log.txt
 errorsCount = 0
 open("log.txt","w").close()
@@ -29,4 +51,4 @@ for i in range(len(txt1)):
     errorsCount += 1
 f.close()
 
-print(errorsCount)
+print("[INFO] Log.txt updated")

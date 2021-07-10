@@ -1,0 +1,6 @@
+1 Declared module does not match the first dot-delimited component of file name: "sample9"
+1 Explicitly define a storage type for every parameter and localparam, (B_W).
+10 Remove trailing spaces.
+2 Use named ports for module instantiation with more than one port
+2 Use 'always_comb' instead of 'always @*'.
+11 Use spaces, not tabs.
