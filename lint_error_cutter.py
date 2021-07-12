@@ -37,7 +37,7 @@ for error in errorList:
 open("summary.txt","w").close()
 f = open("summary.txt","a")
 for i in range(len(summary)):
-    f.write(str(summary[i][0]) + summary[i][1] + "\n")
+    f.write("La regla '" + summary[i][1] + "' se está violando " + str(summary[i][0]) + " veces\n")
 f.close()
 
 print("[INFO] Summary created")

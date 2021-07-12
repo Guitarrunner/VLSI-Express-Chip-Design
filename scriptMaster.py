@@ -94,19 +94,42 @@ def dataTreatment():
             temp = txt1[i][cutter_twopoint+1:cutter_parenthesis]
             txt1[i]= [txt1[i][:cutter_twopoint],temp]
 
-        errorCount = 0
+        # Summary of errors
+        errorList = []
+        for i in range(len(txt1)):
+            if txt1[i][1] not in errorList:
+                errorList.append(txt1[i][1])
 
-        # Update log.txt
+        summary = []
+        for error in errorList:
+            tmp = 0
+            for i in range(len(txt1)):
+                if txt1[i][1] == error:
+                    tmp += 1
+            summary.append([tmp,error])
+
+        open("summary.txt","w").close()
+        f = open("summary.txt","a")
+        for i in range(len(summary)):
+            f.write("La regla '" + summary[i][1] + "' se está violando " + str(summary[i][0]) + " veces\n")
+        f.close()
+
+        #print("[INFO] Summary created")
+
+        #Overwrite data in log.txt
+        errorsCount = 0
         open("log.txt","w").close()
         f = open("log.txt","a")
         for i in range(len(txt1)):
             f.write(txt1[i][0] + txt1[i][1] + "\n")
-            errorCount += 1
+            errorsCount += 1
         f.close()
 
+        #print("[INFO] Log.txt updated")
+
         # Errors count
-        if errorCount != 0:
-            print("[WARNING] "+ str(errorCount)+" errors found\n")
+        if errorsCount != 0:
+            print("[WARNING] "+ str(errorsCount)+" errors found\n")
 
 # Interface
 class Gui:
@@ -195,4 +218,4 @@ else:
             fileName = sys.argv[1]
             commands = createCommand(analysisType,fileName)
             runCommand(commands)
-            #dataTreatment()
+            dataTreatment()
