@@ -6,7 +6,6 @@ import os
 from struct import pack
 import vagrant
 import sys
-import os
 from tkinter import Menu
 from tkinter import filedialog
 import tkinter.messagebox
@@ -465,12 +464,11 @@ class Gui:
                 self.content_text, search_toplevel, search_entry_widget)
             ).grid(row=0, column=2, sticky='e' + 'w', padx=2, pady=2)
 
-        def close_search_window(self):
-            self.content_text.tag_remove('match', '1.0', END)
-            search_toplevel.destroy()
-        search_toplevel.protocol('WM_DELETE_WINDOW', close_search_window)
+    def close_search_window(self):
+        self.content_text.tag_remove('match', '1.0', END)
+        self.search_toplevel.destroy()
+        self.search_toplevel.protocol('WM_DELETE_WINDOW', self.close_search_window)
         return "break"
-
 
     def search_output(self,needle, if_ignore_case, content_text,
                     search_toplevel, search_box):
