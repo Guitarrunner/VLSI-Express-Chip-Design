@@ -322,6 +322,8 @@ class Gui:
         foreground_color, background_color = fg_bg_colors.split('.')
         self.content_text.config(
             background=background_color, fg=foreground_color)
+        self.result_text.config(
+            background=background_color, fg=foreground_color)
 
 
     def update_line_numbers(self,event=None):
