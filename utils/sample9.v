@@ -9,7 +9,7 @@ module Corrimiento_der (A, B, Fin, E, Y);
 
     wire [B_W-1:0] C, D;
     wire [B_W-1:0] Not1;
-    wire [B_W-1:0] Or1; 
+    wire [B_W-1:0] Or1;
 
     assign D = A >> B;
     assign C = {B_W{1'b1}} >> B;
@@ -41,3 +41,4 @@ module Corrimiento_der (A, B, Fin, E, Y);
     end
 
 endmodule
+

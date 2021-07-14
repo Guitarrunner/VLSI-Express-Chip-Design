@@ -26,13 +26,13 @@ def mytask(command):
 
 def createCommand(analysisType,fileName):
     switcher = {
-                "-l": "sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint",
-                "-f": "sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format",
-                "-s": "sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax",
-                "-d": "sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff",
-                "-p": "sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project",
-                "-o": "sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate",
-                "-e": "sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"
+                "-l": ["Style Linter","sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint"],
+                "-f": ["Formatter","sudo verible/bazel-bin/verilog/tools/formatter/verible-verilog-format"],
+                "-s": ["Parser","sudo verible/bazel-bin/verilog/tools/syntax/verible-verilog-syntax"],
+                "-d": ["Lexical Diff","sudo verible/bazel-bin/verilog/tools/diff/verible-verilog-diff"],
+                "-p": ["Verible project tool","sudo verible/bazel-bin/verilog/tools/proyect/verible-verilog-project"],
+                "-o": ["Code Obfuscator","sudo verible/bazel-bin/verilog/tools/obfuscator/verible-verilog-obfuscate"],
+                "-e": ["Source Code Indexer","sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"]
             }
 
     filePath = " /vagrant_data/utils/" + fileName
@@ -40,7 +40,8 @@ def createCommand(analysisType,fileName):
 
     # Command flow
     for analysis in analysisType:
-        commands.append(switcher.get(analysis) + filePath + " >> log.txt; cp log.txt /vagrant_data/")
+        tool = switcher.get(analysis)
+        commands.append([tool[0],tool[1] + filePath + " >> log.txt; cp log.txt /vagrant_data/"])
     return commands
 
 def runCommand(commands):
@@ -58,10 +59,10 @@ def runCommand(commands):
         if(Path("log.txt").stat().st_size != 0):
             break
         else:
-            execute(mytask,command)
+            execute(mytask,command[1])
     if(Path("log.txt").stat().st_size != 0):
         print("\n[INFO] Exiting Vagrant\n")
-        print("[ERROR] The analysis failed at one point, check the log.txt for errors")
+        print("[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
 
     else:
         print("\n[INFO] Exiting Vagrant\n")

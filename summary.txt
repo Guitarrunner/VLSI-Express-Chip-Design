@@ -1,6 +1,0 @@
-La regla ' Declared module does not match the first dot-delimited component of file name: "sample9"' se está violando 1 veces
-La regla ' Explicitly define a storage type for every parameter and localparam, (B_W).' se está violando 1 veces
-La regla ' Remove trailing spaces.' se está violando 10 veces
-La regla ' Use named ports for module instantiation with more than one port' se está violando 2 veces
-La regla ' Use 'always_comb' instead of 'always @*'.' se está violando 2 veces
-La regla ' Use spaces, not tabs.' se está violando 11 veces
