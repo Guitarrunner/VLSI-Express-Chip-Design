@@ -114,7 +114,7 @@ def dataTreatment():
         open("summary.txt","w").close()
         f = open("summary.txt","a")
         for i in range(len(summary)):
-            f.write("La regla '" + summary[i][1] + "' se está violando " + str(summary[i][0]) + " veces\n")
+            f.write(summary[i][1] + "' is being violated " + str(summary[i][0]) + " times\n")
         f.close()
 
         #print("[INFO] Summary created")
