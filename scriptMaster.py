@@ -8,11 +8,14 @@ from struct import pack
 import vagrant
 import sys
 from tkinter import Menu
-from tkinter import filedialog
+from tkinter import filedialog, font, ttk, scrolledtext, _tkinter
 import tkinter.messagebox
 from pathlib import Path
 from fabric.api import *
 from tkinter import *
+
+from pygments.lexers.hdl import VerilogLexer
+from pygments.styles import get_style_by_name
 
 # Global Variables
 options = ["-l","-f","-s","-d","-p","-o","-e","-g", "-i"]
@@ -175,6 +178,7 @@ def dataTreatment():
 class Gui:
     def __init__(self,root):
         self.root = root
+        self.lexer = VerilogLexer() ##ADD syntax highlighter verilog 
         self.root.title("VLSI")
         self.root.geometry("1180x670")
 
@@ -307,6 +311,9 @@ class Gui:
         self.content_text.bind('<Control-Y>', self.redo)
         self.content_text.bind('<Any-KeyPress>', self.on_content_changed)
         self.content_text.tag_configure('active_line', background='ivory2')
+        #self.content_text.bind('<Tab>', self.tab2spaces4)
+        #self.content_text.bind('<Return>', self.autoindent)
+        self.root.bind("<Key>", self.event_key)
 
         # Result text
         self.result_text = Text(self.root, wrap='word', undo=1)
@@ -331,6 +338,10 @@ class Gui:
         # bind right mouse click to show pop up and set focus to text widget on launch
         self.content_text.bind('<Button-3>', self.show_popup_menu)
         self.content_text.focus_set()
+
+        #Syntax highlighter verilog 
+        self.create_tags()
+        self.bootstrap = [self.recolorize]
 
 
     # show pop-up menu
@@ -419,6 +430,67 @@ class Gui:
             self.root.destroy()
 
 
+    def create_tags(self):
+        bold_font = font.Font(self.content_text, self.content_text.cget("font"))
+        bold_font.configure(weight=font.BOLD)
+        italic_font = font.Font(self.content_text, self.content_text.cget("font"))
+        italic_font.configure(slant=font.ITALIC)
+        bold_italic_font = font.Font(self.content_text, self.content_text.cget("font"))
+        bold_italic_font.configure(weight=font.BOLD, slant=font.ITALIC)
+        style = get_style_by_name('emacs')
+        
+        for ttype, ndef in style:
+            tag_font = None
+        
+            if ndef['bold'] and ndef['italic']:
+                tag_font = bold_italic_font
+            elif ndef['bold']:
+                tag_font = bold_font
+            elif ndef['italic']:
+                tag_font = italic_font
+ 
+            if ndef['color']:
+                foreground = "#%s" % ndef['color'] 
+            else:
+                foreground = None
+ 
+            self.content_text.tag_configure(str(ttype), foreground=foreground, font=tag_font) 
+    
+ 
+    def recolorize(self):
+        code = self.content_text.get("1.0", "end-1c")
+        tokensource = self.lexer.get_tokens(code)
+        start_line=1
+        start_index = 0
+        end_line=1
+        end_index = 0
+        
+        for ttype, value in tokensource:
+            if "\n" in value:
+                end_line += value.count("\n")
+                end_index = len(value.rsplit("\n",1)[1])
+            else:
+                end_index += len(value)
+ 
+            if value not in (" ", "\n"):
+                index1 = "%s.%s" % (start_line, start_index)
+                index2 = "%s.%s" % (end_line, end_index)
+ 
+                for tagname in self.content_text.tag_names(index1): # FIXME
+                    self.content_text.tag_remove(tagname, index1, index2)
+ 
+                self.content_text.tag_add(str(ttype), index1, index2)
+ 
+            start_line = end_line
+            start_index = end_index
+
+
+    def event_key(self, event):
+        keycode = event.keycode
+        char = event.char
+        self.recolorize()
+
+
     def new_file(self,event=None):
         self.root.title("Untitled")
         global file_name
@@ -445,6 +517,7 @@ class Gui:
             self.content_text.delete(1.0, END)
             with open(file_name) as _file:
                 self.content_text.insert(1.0, _file.read())
+            self.recolorize()
             self.on_content_changed()
 
 
