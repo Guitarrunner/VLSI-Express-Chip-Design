@@ -311,7 +311,7 @@ class Gui:
         self.content_text.bind('<Control-Y>', self.redo)
         self.content_text.bind('<Any-KeyPress>', self.on_content_changed)
         self.content_text.tag_configure('active_line', background='ivory2')
-        #self.content_text.bind('<Tab>', self.tab2spaces4)
+        self.content_text.bind('<Tab>', self.tab2spaces4)
         #self.content_text.bind('<Return>', self.autoindent)
         self.root.bind("<Key>", self.event_key)
 
@@ -428,6 +428,11 @@ class Gui:
     def exit_editor(self,event=None):
         if tkinter.messagebox.askokcancel("Quit?", "Do you want to QUIT for sure?\n Make sure you've saved your current work."):
             self.root.destroy()
+
+
+    def tab2spaces4(self, event):
+        self.content_text.insert(self.content_text.index("insert"), "    ")
+        return "break"
 
 
     def create_tags(self):
