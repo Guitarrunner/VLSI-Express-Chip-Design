@@ -428,7 +428,7 @@ class Gui:
 
     def run(self,event=None):
         fileName = os.path.basename(file_name)
-        command = createCommand(["-l"],fileName)
+        command = createCommand([["-l"]],fileName)
         runCommand(command)
         dataTreatment()
         with open("log.txt") as _file:
