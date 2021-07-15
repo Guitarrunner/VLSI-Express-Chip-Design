@@ -18,8 +18,8 @@ module Incremento (A, B, Cout, Fin, V, Y);
 
 	if(Fin)
     	Y<= inc;
-    	
-    	
+
+
 	else
 	Y<= inc1;
 	
@@ -29,8 +29,8 @@ module Incremento (A, B, Cout, Fin, V, Y);
 
 	if(Fin)
     	Cout=C1;
-    	
-    	
+
+
 	else
 	Cout=C2;
 	
@@ -39,8 +39,8 @@ module Incremento (A, B, Cout, Fin, V, Y);
        always @ (*) begin
 	if(Fin)
     	V=v0;
-    	
-    	
+
+
 	else
 	V=v1;
 	

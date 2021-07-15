@@ -2,6 +2,7 @@
 #               (TERMINAL) python3 scriptMaster.py sample10.v -l
 
 # Imports
+from io import IncrementalNewlineDecoder
 import os
 from struct import pack
 import vagrant
@@ -14,7 +15,8 @@ from fabric.api import *
 from tkinter import *
 
 # Global Variables
-options = ["-l","-f","-s","-d","-p","-o","-e","-g"]
+options = ["-l","-f","-s","-d","-p","-o","-e","-g", "-i"]
+
 PROGRAM_NAME = "VLSI"
 file_name = None
 
@@ -40,8 +42,15 @@ def createCommand(analysisType,fileName):
 
     # Command flow
     for analysis in analysisType:
-        tool = switcher.get(analysis)
-        commands.append([tool[0],tool[1] + filePath + " >> log.txt; cp log.txt /vagrant_data/"])
+        tool = switcher.get(analysis[0])
+
+        flags = ""
+        if len(analysis) > 1:
+            for flag in analysis[1:]:
+                flags += " " + flag
+
+        commands.append([tool[0],tool[1] + flags + filePath + " >> log.txt; cp log.txt /vagrant_data/"])
+
     return commands
 
 def runCommand(commands):
@@ -68,15 +77,43 @@ def runCommand(commands):
         print("\n[INFO] Exiting Vagrant\n")
 
 def inputValidation():
-    operations = []
-    for i in range(2,len(sys.argv)):
-        if sys.argv[i] not in options:
-            print("[ERROR] The type of analysis " + sys.argv[i] + " does not correspond to a valid one.")
+    commands = []
+    userInput = sys.argv[2:]
+    
+    inputStr = ""
+    for ui in userInput:
+        inputStr += " " + ui
+
+    inputStr = inputStr.split(",")
+    for i in range(len(inputStr)):
+        inputStr[i] = inputStr[i].split()
+
+    for command in inputStr:
+        if command[0] not in options:
+            print("[ERROR] The type of analysis " + command[0] + " does not correspond to a valid one.")
             return -1
         else:
-            operations.append(sys.argv[i])
-    return operations
-    
+            if len(command)>1:
+                switcher = {
+                "-l": ["Style Linter",          ["--flagfile","--fromenv","--tryfromenv","--undefok","--rules","--rules_config","--rules_config_search",
+                                                "--ruleset","--waiver_files","--verilog_trace_parser","--autofix=yes","--autofix=no","autofix=interactive",
+                                                "--check_syntax","--generate_markdown","--help_rules","--lint_fatal","--parse_fatal","--show_diagnostic_conext"]],
+                "-f": ["Formatter",             ["--failsafe_success","--inplace","--lines","--max_search_states","--show_equally_optimal_wrappings",
+                                                "--show_inter_token_info","--show_largest_token_partitions","--show_token_partition_tree","--stdin_name","--verify_convergence"]],
+                "-s": ["Parser",                ["--error_limit","--export_json","--lang","--printrawtokens","--printtokens","--printtree","--verifytree"]],
+                "-d": ["Lexical Diff",          ["--mode=format","--mode=obfuscate"]],
+                "-o": ["Code Obfuscator",       ["--decode","--load_map","--preserve_interface","--save_map"]],
+                "-e": ["Source Code Indexer",   ["--printextraction","--print_kythe_facts=json","--print_kythe_facts=proto","--file_list_path","--file_list_root",
+                                                "--include_dir_paths"]]
+            }
+                validOptions = switcher.get(command[0])
+                for i in range(1,len(command)): 
+                    if command[i] in validOptions[1]:
+                        pass
+                    else:
+                        print("[ERROR] The " + command[i] + " flag is not valid for " + validOptions[0])
+                        return -1
+    return inputStr
 
 def dataTreatment():
     # Data treatment
@@ -539,7 +576,6 @@ else:
         # Operations Validation
         analysisType = inputValidation()
         if analysisType != -1:
-
             # Command Preparation
             fileName = sys.argv[1]
             commands = createCommand(analysisType,fileName)

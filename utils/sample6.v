@@ -39,14 +39,14 @@ assign W_C[0] = Cin;
 assign F = W_F;
 always @(*) begin
 	 if ((A1[B_W - 1] != B1[B_W-1]) & W_C[B_W] == 1 | (A1[B_W - 1] == B1[B_W-1]) & W_C[B_W - 1] == A1[B_W - 1] & W_C[B_W ] ==1)
-	           Co = W_C[B_W];  
+	           Co = W_C[B_W];
 	       else
 	           Co = 1'b0;
-	       end 
+	       end
 
 always @(*) begin
 	 if ((A1[B_W - 1] == B1[B_W -1]) & (A1[B_W - 1]!= W_F[B_W - 1]) | (A[B_W - 1] == B1[B_W -1]) & (A1[B_W - 1]!= W_F[B_W - 1]) & (W_C[B_W] == 1'b1 ))
-	           V = 1'b1;  
+	           V = 1'b1;
 	       else
 	           V = 1'b0;
 	       end
