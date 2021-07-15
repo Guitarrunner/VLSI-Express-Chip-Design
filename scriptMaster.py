@@ -429,6 +429,24 @@ class Gui:
         if tkinter.messagebox.askokcancel("Quit?", "Do you want to QUIT for sure?\n Make sure you've saved your current work."):
             self.root.destroy()
 
+    def autoindent(self, event):
+        """
+            this method implements the callback for the Return Key in the editor widget.
+            arguments: the tkinter event object with which the callback is associated
+        """
+        indentation = "    "
+        lineindex = self.content_text.index("insert").split(".")[0]
+        linetext = self.content_text.get(lineindex+".0", lineindex+".end")
+
+        for character in linetext:
+            if character in [" ","\t"]:
+                indentation += character
+            else:
+                break
+                
+        self.content_text.insert(self.content_text.index("insert"), "\n"+indentation)
+        return "break"
+
 
     def tab2spaces4(self, event):
         self.content_text.insert(self.content_text.index("insert"), "    ")
