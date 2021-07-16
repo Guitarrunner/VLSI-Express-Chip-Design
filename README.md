@@ -10,6 +10,7 @@ ready to use (Docker / Container).
 - [Fabric3] 1.14.post1
 - [Tkinter] 8.6
 - [vagrant] 2.2.16
+- [Pygments] 2.9.0
 - [virtualbox] 6.1.22 (Windows/MAC)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1.16 (Linux) 
 
@@ -56,3 +57,4 @@ After running, a .txt file will be created in which you can see the analysis per
 [python-vagrant]: https://pypi.org/project/python-vagrant/
 [Fabric3]: https://pypi.org/project/Fabric3/
 [Tkinter]: https://www.tutorialspoint.com/how-to-install-tkinter-in-python
+[Pygments]: https://pygments.org/
