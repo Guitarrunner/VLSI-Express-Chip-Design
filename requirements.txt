@@ -1,0 +1,5 @@
+# Requirements
+python-vagrant == 0.5.15
+Fabric3 == 1.14.post1
+Pygments == 2.9.0
+tk
