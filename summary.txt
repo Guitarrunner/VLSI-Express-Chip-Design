@@ -1,2 +1,5 @@
- Explicitly define a storage type for every parameter and localparam, (BW).' is being violated 1 times
+ Declared module does not match the first dot-delimited component of file name: "sample8"' is being violated 1 times
+ Explicitly define a storage type for every parameter and localparam, (B_W).' is being violated 1 times
+ Use spaces, not tabs.' is being violated 23 times
  Use named ports for module instantiation with more than one port' is being violated 2 times
+ Use 'always_comb' instead of 'always @*'.' is being violated 3 times

@@ -20,6 +20,35 @@ from pygments.styles import get_style_by_name
 # Global Variables
 options = ["-l","-f","-s","-d","-p","-o","-e","-g", "-i"]
 
+# Possible flags
+validation = {
+                "-l":   ["Style Linter",[  
+                                        ["cs",  ["--flagfile","--fromenv","--tryfromenv","--undefok","--rules"]],
+                                        ["path",["--rules_config", "--waiver_files", "--autofix_output_file"]],
+                                        ["set", ["--ruleset"]],
+                                        ["des", ["--autofix"]],
+                                        ["tf",  ["--show_diagnostic_context","--generate_markdown","--verilog_trace_parser","--parse_fatal","--lint_fatal","--rules_config_search","--check_syntax"]],
+                                        ["ru",  ["--help_rules"]],
+                                        ["h",   ["--helpfull"]]
+                                        ]],
+
+                "-f":   ["Formatter",   [
+                                        ["cs",  ["--flagfile","--fromenv","--tryfromenv","--undefok"]],
+                                        ["tf",  ["--verilog_trace_parser","--expand_coverpoints","--failsafe_success","--inplace","--show_equally_optimal_wrappings","--show_inter_token_info","--show_token_partition_tree","--try_wrap_long_lines","--verbose","--verify_convergence"]],
+                                        ["al",  ["--assignment_statement_alignment","--case_items_alignment","--class_member_variables_alignment","formal_parameters_alignment","--named_parameter_alignment","--named_port_alignment","--net_variable_alignment","--port_declarations_alignment","--struct_union_members_alignment"]],
+                                        ["id",  ["--formal_parameters_indentation","--named_parameter_indentation","--named_port_indentation","--port_declarations_indentation"]],
+                                        ["n",   ["--lines","--max_search_states","--show_largest_token_partitions"]],
+                                        ["h",   ["--helpfull"]]
+                                        ]],
+
+                "-s":   ["Parser",      [
+                                        ["cs",  ["--flagfile","--fromenv","--tryfromenv","--undefok"]],
+                                        ["tf",  ["--verilog_trace_parser","--export_json","--printrawtokens","--printtokens","--printtree","--show_diagnostic_context","--verifytree"]],
+                                        ["n",   ["--error_limit"]],
+                                        ["h",   ["--helpfull"]]
+                                        ]]      
+            }
+
 PROGRAM_NAME = "VLSI"
 file_name = None
 
@@ -79,44 +108,108 @@ def runCommand(commands):
     else:
         print("\n[INFO] Exiting Vagrant\n")
 
-def inputValidation():
+def inputValidation(parameters):
+
     commands = []
-    userInput = sys.argv[2:]
-    
-    inputStr = ""
-    for ui in userInput:
-        inputStr += " " + ui
+    aux_commands = []
 
-    inputStr = inputStr.split(",")
-    for i in range(len(inputStr)):
-        inputStr[i] = inputStr[i].split()
+    while(parameters!=[]):
 
-    for command in inputStr:
-        if command[0] not in options:
-            print("[ERROR] The type of analysis " + command[0] + " does not correspond to a valid one.")
-            return -1
+        # Validate type of analisis
+        if parameters[0].find("--") != 0:
+            if parameters[0] in options:
+                pass
+            else:
+                print("[ERROR] The type of analysis " + parameters[0] + " does not correspond to a valid one.")
+                return -1
+
+        if len(parameters) < 2 and parameters[0] in options:
+            commands.append(aux_commands)
+            commands.append([parameters[0]])
+            parameters = parameters[1:]
+            break
+
+        elif len(parameters) < 2:
+            aux_commands.append(parameters[0])
+            commands.append(aux_commands)
+            parameters = parameters[1:]
+            break
+
+        elif parameters[0] in options and aux_commands != []:
+            commands.append(aux_commands)
+            aux_commands = [parameters[0]]
+            parameters = parameters[1:]
+
         else:
-            if len(command)>1:
-                switcher = {
-                "-l": ["Style Linter",          ["--flagfile","--fromenv","--tryfromenv","--undefok","--rules","--rules_config","--rules_config_search",
-                                                "--ruleset","--waiver_files","--verilog_trace_parser","--autofix=yes","--autofix=no","autofix=interactive",
-                                                "--check_syntax","--generate_markdown","--help_rules","--lint_fatal","--parse_fatal","--show_diagnostic_conext"]],
-                "-f": ["Formatter",             ["--failsafe_success","--inplace","--lines","--max_search_states","--show_equally_optimal_wrappings",
-                                                "--show_inter_token_info","--show_largest_token_partitions","--show_token_partition_tree","--stdin_name","--verify_convergence"]],
-                "-s": ["Parser",                ["--error_limit","--export_json","--lang","--printrawtokens","--printtokens","--printtree","--verifytree"]],
-                "-d": ["Lexical Diff",          ["--mode=format","--mode=obfuscate"]],
-                "-o": ["Code Obfuscator",       ["--decode","--load_map","--preserve_interface","--save_map"]],
-                "-e": ["Source Code Indexer",   ["--printextraction","--print_kythe_facts=json","--print_kythe_facts=proto","--file_list_path","--file_list_root",
-                                                "--include_dir_paths"]]
-            }
-                validOptions = switcher.get(command[0])
-                for i in range(1,len(command)): 
-                    if command[i] in validOptions[1]:
+            aux_commands.append(parameters[0])
+            parameters = parameters[1:]
+
+    #print(commands)
+
+    for cmd in commands:
+        # Verification of the flags corresponding to the analyzes
+        if len(cmd) > 1:
+            typeValidation = validation.get(cmd[0])
+            m = typeValidation[1]
+            result = -1
+            validationType = ""
+            for flag in cmd[1:]:
+                aux_flag = flag.split("=",1)
+                for i in m:
+                    if aux_flag[0] in i[1]:
+                        result = 0
+                        validationType = i[0]
+            
+                if result != 0:
+                    print("[ERROR] The " + flag + " flag is not valid for " + typeValidation[0])
+                    return -1
+                
+                # Checking the flags arguments
+                if validationType == "cs":
+                    if aux_flag[0] != "--flagfile":
+                        argFlags = aux_flag[1].split(",")
+                        for arg in argFlags:
+                            aux_arg = arg.split("=")
+                            result = -1
+                            for i in m:
+                                if aux_arg[0] in i[1]:
+                                    result = 0
+                            if result != 0:
+                                print("[ERROR] The argument " + arg + " is not valid for the flag" + aux_flag[0])
+                                return -1
+
+                elif validationType == "path":
+                    path = aux_flag[1]
+                    if os.path.exists(path) != True:
+                        print("[ERROR] Directory " + path +" does not exist")
+                        return -1
+                    
+                elif validationType == "h":
+                    pass
+                
+                elif validationType == "n":
+                    try:
+                        num = int(aux_flag[1])
+                    except:
+                        print("[ERROR] Argument " + aux_flag[1] +" is not valid")
+                        return -1
+
+                elif validationType == "set" or "des" or "tf" or "ru" or "al" or "id":
+                    multipleOption = {
+                                    "set":  ["default","all","none"],
+                                    "des":  ["yes","no","interactive"],
+                                    "tf":   ["true","false"],
+                                    "ru":   ["all"],
+                                    "al":   ["align","flush-left","preserve","infer"],
+                                    "id":   ["indent","wrap"]
+                                    }
+
+                    if aux_flag[1] in multipleOption.get(validationType):
                         pass
                     else:
-                        print("[ERROR] The " + command[i] + " flag is not valid for " + validOptions[0])
+                        print("[ERROR] Argument " + aux_flag[1] +" is not valid")
                         return -1
-    return inputStr
+    return commands
 
 def dataTreatment():
     # Data treatment
@@ -670,7 +763,11 @@ else:
         print("[ERROR] The indicated file cannot be found.")
     else:
         # Operations Validation
-        analysisType = inputValidation()
+        parameters = []
+        for i in range(2,len(sys.argv)):
+            parameters.append(sys.argv[i])
+
+        analysisType = inputValidation(parameters)
         if analysisType != -1:
             # Command Preparation
             fileName = sys.argv[1]
