@@ -5,6 +5,7 @@
 from io import IncrementalNewlineDecoder
 import os
 from struct import pack
+from six import u
 import vagrant
 import sys
 from tkinter import Menu
@@ -18,7 +19,7 @@ from pygments.lexers.hdl import VerilogLexer
 from pygments.styles import get_style_by_name
 
 # Global Variables
-options = ["-l","-f","-s","-d","-p","-o","-e","-g", "-i"]
+options = ["-l","-f","-s","-d","-p","-o","-e","-g", "-i","-t"]
 
 # Possible flags
 validation = {
@@ -101,12 +102,10 @@ def runCommand(commands):
             break
         else:
             execute(mytask,command[1])
-    if(Path("log.txt").stat().st_size != 0):
-        print("\n[INFO] Exiting Vagrant\n")
-        print("[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
-
-    else:
-        print("\n[INFO] Exiting Vagrant\n")
+            if(Path("log.txt").stat().st_size != 0):
+                print("\n[INFO] Exiting Vagrant\n")
+                print("[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
+                break
 
 def inputValidation(parameters):
 
@@ -124,10 +123,15 @@ def inputValidation(parameters):
                 return -1
 
         if len(parameters) < 2 and parameters[0] in options:
-            commands.append(aux_commands)
-            commands.append([parameters[0]])
-            parameters = parameters[1:]
-            break
+            if aux_commands != []:
+                commands.append(aux_commands)
+                commands.append([parameters[0]])
+                parameters = parameters[1:]
+                break
+            else:
+                commands.append([parameters[0]])
+                parameters = parameters[1:]
+                break
 
         elif len(parameters) < 2:
             aux_commands.append(parameters[0])
@@ -754,9 +758,49 @@ if sys.argv[1] == "-g":
     root.mainloop()
 
 elif sys.argv[1] == "-i":
-    print("[INFO] You have just entered interactive mode")
+    print("[INFO] Starting conection ssh with vagrant")
     os.system("vagrant ssh")
 
+elif sys.argv[1] == "-t":
+    print("[INFO] You have just entered interactive mode\n")
+    print("[INFO] Starting Vagrant\n")
+    v = vagrant.Vagrant()
+    v.up()
+    env.hosts = [v.user_hostname_port()]
+    env.key_filename = v.keyfile()
+    env.warn_only = True
+
+    while True:
+        userInput = input("\nEnter command: ") 
+
+        if userInput == "exit":
+            print("\n[INFO] Exiting Vagrant\n")
+            break
+
+        elif userInput == "help":
+            print("\n>>> The format is as follows: filename analysis flags")
+            print(">>> To exit you just have to type 'exit' in the terminal\n")
+
+
+        else:
+            parameters = userInput.split()
+            analysisType = inputValidation(parameters[1:])
+            if analysisType != -1:
+                # Command Preparation
+                fileName = parameters[0]
+                commands = createCommand(analysisType,fileName)
+                
+                # Run Commands
+                execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
+                for command in commands:
+                    if(Path("log.txt").stat().st_size != 0):
+                        break
+                    else:
+                        execute(mytask,command[1])
+                        if(Path("log.txt").stat().st_size != 0):
+                            print("\n[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
+            
+                dataTreatment()
 else:
     # Validations from terminal
     if not(os.path.exists('./utils/'+sys.argv[1])):
