@@ -6,11 +6,7 @@ ready to use (Docker / Container).
 
 ## Prerequisites
 - Python 3.8.10
-- [python-vagrant] 0.5.15
-- [Fabric3] 1.14.post1
-- [Tkinter] 8.6
 - [vagrant] 2.2.16
-- [Pygments] 2.9.0
 - [virtualbox] 6.1.22 (Windows/MAC)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1.16 (Linux) 
 
@@ -21,6 +17,14 @@ To build, you need [vagrant] and [virtualbox]
 # Build all tools and libraries
 vagrant up
 ```
+
+To run the script, first it is necessary to run the following command, to install the necessary requirements
+
+```bash
+# Build all tools and libraries for script
+pip3 install -r requirements.txt
+```
+
 
 ## How to use
 The tool developed has two ways of using it, one through the interface and the other through the terminal
