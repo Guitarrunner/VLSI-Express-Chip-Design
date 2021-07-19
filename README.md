@@ -15,7 +15,7 @@ To build, you need [vagrant] and [virtualbox]
 
 ```bash
 # Build all tools and libraries
-vagrant up
+vagrant up 
 ```
 
 To run the script, first it is necessary to run the following command, to install the necessary requirements
