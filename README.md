@@ -6,6 +6,7 @@ ready to use (Docker / Container).
 
 ## Prerequisites
 - Python 3.8.10
+- [Git] 
 - [vagrant] 2.2.16
 - [virtualbox] 6.1.22 (Windows/MAC)\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.1.16 (Linux) 
@@ -54,7 +55,7 @@ The program run a script that is responsible for analyzing the code of the selec
 
 After running, a .txt file will be created in which you can see the analysis performed on the document.
 
-
+[Git]:https://git-scm.com/downloads
 [vagrant]:https://www.vagrantup.com/
 [virtualbox]: https://www.virtualbox.org/
 [verible]: https://github.com/google/verible/blob/master/README.md
