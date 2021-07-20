@@ -1,2 +1,0 @@
- Explicitly define a storage type for every parameter and localparam, (BW).' is being violated 1 times
- Use named ports for module instantiation with more than one port' is being violated 2 times

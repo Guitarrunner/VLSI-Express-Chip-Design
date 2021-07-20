@@ -2,19 +2,19 @@
 #               (TERMINAL) python3 scriptMaster.py sample10.v -l
 
 # Imports
-from io import IncrementalNewlineDecoder
 import os
-from struct import pack
-from six import u
 import vagrant
 import sys
+import tkinter.messagebox
+import subprocess
+from io import IncrementalNewlineDecoder
+from struct import pack
+from six import u
 from tkinter import Menu
 from tkinter import filedialog, font, ttk, scrolledtext, _tkinter
-import tkinter.messagebox
 from pathlib import Path
 from fabric.api import *
 from tkinter import *
-
 from pygments.lexers.hdl import VerilogLexer
 from pygments.styles import get_style_by_name
 
@@ -749,6 +749,20 @@ class Gui:
         self.content_text.event_generate("<<Redo>>")
         self.on_content_changed()
         return 'break'
+
+# Verification for update
+try:
+    tagRemote="git ls-remote --tags --refs --sort='v:refname' git://github.com/Guitarruner/VLSI-Express-Chip-Design | tail -n1 | sed 's/.*\///'"
+    tagR = subprocess.check_output(tagRemote, shell=True)
+
+    tagLocal = "git describe --tag --abbrev=0"
+    tarL = subprocess.check_output(tagLocal, shell=True)
+
+    if tagR != tarL:
+        print("[INFO] There is a new update.")
+ 
+except:
+    print("[INFO] Not access to internet.")
 
 # Script
 if sys.argv[1] == "-g":
