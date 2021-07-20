@@ -752,7 +752,7 @@ class Gui:
 
 # Verification for update
 try:
-    tagRemote="git ls-remote --tags --refs --sort='v:refname' git://github.com/Guitarrunner/VLSI-Express-Chip-Design | tail -n1 | sed 's/.*\///'"
+    tagRemote="git ls-remote --tags --refs git://github.com/Guitarrunner/VLSI-Express-Chip-Design | tail -n1 | sed 's/.*\///'"
     tagR = subprocess.check_output(tagRemote, shell=True)
 
     tagLocal = "git describe --tag --abbrev=0"
