@@ -1,12 +1,6 @@
 1:8 Declared module does not match the first dot-delimited component of file name: "fileMaster"
-9:4 Use 'always_comb' instead of 'always @*'.
-10:1 Use spaces, not tabs.
-11:2 Use spaces, not tabs.
-12:1 Use spaces, not tabs.
-13:1 Use spaces, not tabs.
-17:1 Use 'always_comb' instead of 'always @*'.
-18:1 Use spaces, not tabs.
-19:2 Use spaces, not tabs.
+13:1 Remove trailing spaces.
+14:5 Use 'always_comb' instead of 'always @*'.
+17:1 Use spaces, not tabs.
+17:9 Remove trailing spaces.
 20:1 Use spaces, not tabs.
-21:1 Use spaces, not tabs.
-24:10 File must end with a newline.

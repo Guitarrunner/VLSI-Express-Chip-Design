@@ -804,7 +804,12 @@ elif sys.argv[1] == "-t":
             if analysisType != -1:
 
                 # File Manipulation
+                root = Tk()
+                root.withdraw()
+                root.update()
                 filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+                root.destroy()
+                
                 with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
                     for line in rootFile:
                         staticFile.write(line)
@@ -825,7 +830,12 @@ elif sys.argv[1] == "-t":
                 dataTreatment()
 else:
     # Validations from terminal
+    root = Tk()
+    root.withdraw()
+    root.update()
     filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+    root.destroy()
+
     if not(os.path.exists(filePath)):
         print("[ERROR] The indicated file cannot be found.")
     else:
