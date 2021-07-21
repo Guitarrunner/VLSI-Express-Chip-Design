@@ -7,6 +7,7 @@ import vagrant
 import sys
 import tkinter.messagebox
 import subprocess
+import shutil
 from io import IncrementalNewlineDecoder
 from struct import pack
 from six import u
@@ -70,7 +71,7 @@ def createCommand(analysisType,fileName):
                 "-e": ["Source Code Indexer","sudo verible/bazel-bin/verilog/tools/kythe/verible-verilog-kythe-extractor"]
             }
 
-    filePath = " /vagrant_data/utils/" + fileName
+    filePath = " /vagrant_data/" + fileName
     commands = []
 
     # Command flow
@@ -765,6 +766,7 @@ except:
     print("[INFO] Not access to internet.")
 
 # Script
+
 if sys.argv[1] == "-g":
     # Start Gui
     root = Tk()
@@ -798,11 +800,17 @@ elif sys.argv[1] == "-t":
 
         else:
             parameters = userInput.split()
-            analysisType = inputValidation(parameters[1:])
+            analysisType = inputValidation(parameters)
             if analysisType != -1:
+
+                # File Manipulation
+                filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+                with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
+                    for line in rootFile:
+                        staticFile.write(line)
+
                 # Command Preparation
-                fileName = parameters[0]
-                commands = createCommand(analysisType,fileName)
+                commands = createCommand(analysisType,"fileMaster.v")
                 
                 # Run Commands
                 execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
@@ -817,18 +825,23 @@ elif sys.argv[1] == "-t":
                 dataTreatment()
 else:
     # Validations from terminal
-    if not(os.path.exists('./utils/'+sys.argv[1])):
+    filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+    if not(os.path.exists(filePath)):
         print("[ERROR] The indicated file cannot be found.")
     else:
         # Operations Validation
         parameters = []
-        for i in range(2,len(sys.argv)):
+        for i in range(1,len(sys.argv)):
             parameters.append(sys.argv[i])
 
         analysisType = inputValidation(parameters)
         if analysisType != -1:
+            # File Manipulation
+            with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
+                for line in rootFile:
+                    staticFile.write(line)
+
             # Command Preparation
-            fileName = sys.argv[1]
-            commands = createCommand(analysisType,fileName)
+            commands = createCommand(analysisType,"fileMaster.v")
             runCommand(commands)
             dataTreatment()
