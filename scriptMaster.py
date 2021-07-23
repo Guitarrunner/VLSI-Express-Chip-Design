@@ -60,6 +60,9 @@ def mytask(command):
     with hide('warnings'):
         run(command)
 
+def test():
+    print("HelloWorld")
+
 def createCommand(analysisType,fileName):
     switcher = {
                 "-l": ["Style Linter","sudo verible/bazel-bin/verilog/tools/lint/verible-verilog-lint"],
