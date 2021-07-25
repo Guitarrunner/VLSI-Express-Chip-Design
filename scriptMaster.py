@@ -107,9 +107,9 @@ def runCommand(commands):
         else:
             execute(mytask,command[1])
             if(Path("log.txt").stat().st_size != 0):
-                print("\n[INFO] Exiting Vagrant\n")
                 print("[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
                 break
+    print("\n[INFO] Exiting Vagrant\n")
 
 def inputValidation(parameters):
 
