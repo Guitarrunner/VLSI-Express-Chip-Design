@@ -13,6 +13,8 @@ ready to use (Docker / Container).
 
 ## Build
 To build, you need [vagrant] and [virtualbox]
+If you are using Windows, use port 1234, this is because 8080 is busy by ApplicationWebServer.exe
+You can change it in the file Vagrantfile, line 26. Here you only need to change 8080 for 1234
 
 ```bash
 # Build all tools and libraries
