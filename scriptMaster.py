@@ -766,7 +766,7 @@ try:
     remoteTag = blob.split('\n')[0].split('/')[-1]  
     #print(remoteTag)                      
 
-    if repoTag != remoteTag:
+    if str(repoTag) != str(remoteTag):
         print("[INFO] There is a new update.")
  
 except:
