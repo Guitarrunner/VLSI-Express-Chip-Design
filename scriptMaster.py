@@ -6,8 +6,7 @@ import os
 import vagrant
 import sys
 import tkinter.messagebox
-import subprocess
-import shutil
+import git
 from io import IncrementalNewlineDecoder
 from struct import pack
 from six import u
@@ -756,13 +755,18 @@ class Gui:
 
 # Verification for update
 try:
-    tagRemote="git ls-remote --tags --refs git://github.com/Guitarrunner/VLSI-Express-Chip-Design | tail -n1 | sed 's/.*\///'"
-    tagR = subprocess.check_output(tagRemote, shell=True)
+    # Current tag version
+    repo = git.Repo(search_parent_directories = True)
+    repoTag = repo.tags[-1]
+    print(repoTag)           
 
-    tagLocal = "git describe --tag --abbrev=0"
-    tarL = subprocess.check_output(tagLocal, shell=True)
+    # Remote current tag version
+    g = git.cmd.Git()
+    blob = g.ls_remote('https://github.com/Guitarrunner/VLSI-Express-Chip-Design', sort='-v:refname', tags=True)
+    remoteTag = blob.split('\n')[0].split('/')[-1]  
+    print(remoteTag)                      
 
-    if tagR != tarL:
+    if repoTag != remoteTag:
         print("[INFO] There is a new update.")
  
 except:
