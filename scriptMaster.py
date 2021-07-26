@@ -274,6 +274,39 @@ def dataTreatment():
         if errorsCount != 0:
             print("[WARNING] "+ str(errorsCount)+" errors found\n")
 
+def workflow(filePath,parameters):
+    analysisType = inputValidation(parameters)
+    if analysisType != -1:
+        # File Manipulation
+        with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
+            for line in rootFile:
+                staticFile.write(line)
+
+        # Command Preparation
+        commands = createCommand(analysisType,"fileMaster.v")
+        runCommand(commands)
+        dataTreatment()
+
+def aux_terminal(filePath,analysisType):
+    # File Manipulation
+    with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
+        for line in rootFile:
+            staticFile.write(line)
+
+    # Command Preparation
+    commands = createCommand(analysisType,"fileMaster.v")
+    
+    # Run Commands
+    execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
+    for command in commands:
+        if(Path("log.txt").stat().st_size != 0):
+            break
+        else:
+            execute(mytask,command[1])
+            dataTreatment()
+            if(Path("log.txt").stat().st_size != 0):
+                print("\n[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
+
 # Interface
 class Gui:
     def __init__(self,root):
@@ -780,11 +813,11 @@ if sys.argv[1] == "-g":
     gui = Gui(root)
     root.mainloop()
 
-elif sys.argv[1] == "-i":
+elif sys.argv[1] == "-t":
     print("[INFO] Starting conection ssh with vagrant")
     os.system("vagrant ssh")
 
-elif sys.argv[1] == "-t":
+elif sys.argv[1] == "-i":
     print("[INFO] You have just entered interactive mode\n")
     print("[INFO] Starting Vagrant\n")
     v = vagrant.Vagrant()
@@ -807,58 +840,50 @@ elif sys.argv[1] == "-t":
 
         else:
             parameters = userInput.split()
-            analysisType = inputValidation(parameters)
-            if analysisType != -1:
-
-                # File Manipulation
+            inputFile = parameters[0]
+            flag = -1
+            if inputFile in options:
+                # No file input
                 root = Tk()
                 root.withdraw()
                 root.update()
                 filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
                 root.destroy()
-                
-                with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
-                    for line in rootFile:
-                        staticFile.write(line)
+                analysisType = inputValidation(parameters)
+                aux_terminal(filePath,analysisType)
 
-                # Command Preparation
-                commands = createCommand(analysisType,"fileMaster.v")
-                
-                # Run Commands
-                execute(mytask,"echo -n > log.txt; cp log.txt /vagrant_data/")
-                for command in commands:
-                    if(Path("log.txt").stat().st_size != 0):
-                        break
-                    else:
-                        execute(mytask,command[1])
-                        if(Path("log.txt").stat().st_size != 0):
-                            print("\n[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
+            else:
+                # Path or filename
+                if(os.path.isfile(inputFile)):
+                    analysisType = inputValidation(parameters[1:])
+                    aux_terminal(inputFile,analysisType)
+
+                else:
+                    print("[ERROR] The file '" + inputFile + "' cannot be found.")
             
-                dataTreatment()
 else:
     # Validations from terminal
-    root = Tk()
-    root.withdraw()
-    root.update()
-    filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
-    root.destroy()
-
-    if not(os.path.exists(filePath)):
-        print("[ERROR] The indicated file cannot be found.")
-    else:
-        # Operations Validation
+    inputFile = sys.argv[1]
+    if inputFile in options:
+        # No file input
+        root = Tk()
+        root.withdraw()
+        root.update()
+        filePath= tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+        root.destroy()
+        # Workflow
         parameters = []
         for i in range(1,len(sys.argv)):
             parameters.append(sys.argv[i])
+        workflow(filePath,parameters)
 
-        analysisType = inputValidation(parameters)
-        if analysisType != -1:
-            # File Manipulation
-            with open(filePath,'r') as rootFile, open("fileMaster.v",'w') as staticFile:
-                for line in rootFile:
-                    staticFile.write(line)
-
-            # Command Preparation
-            commands = createCommand(analysisType,"fileMaster.v")
-            runCommand(commands)
-            dataTreatment()
+    else:
+        # Path or filename
+        if(os.path.isfile(inputFile)):
+            # Workflow
+            parameters = []
+            for i in range(2,len(sys.argv)):
+                parameters.append(sys.argv[i])
+            workflow(inputFile,parameters)
+        else:
+            print("[ERROR] The file '" + inputFile + "' cannot be found.")

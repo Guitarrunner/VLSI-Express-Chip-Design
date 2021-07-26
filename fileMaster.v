@@ -1,22 +1,24 @@
-module Ajuste (A, FlagC, FlagZ, X);
+module O_Opera (A,B, Control, FlagZ, RA, RB);
 
-//Ajusta mantisa si FlagC y FlagZ están encendidos
-//BW = 23 bits
+//BW = 8 bits
 
-    input wire [22:0] A;
-    input wire FlagC, FlagZ;
-    output reg [22:0] X;
+input [7:0] A, B;
+input Control, FlagZ;
+output reg [7:0] RA, RB;
 
-    wire [22:0] D;
+   always@(*) begin
+	if (~FlagZ && ~Control)
+ 		RA = B;
+	else
+		RA = A;
 
-    assign D = A >> 1'd1;
-    
-    always @(*) begin
-     if (FlagZ && FlagC | ~FlagZ && FlagC)
+    end
 
-	X = D ;	
+always@(*) begin
+	if (~FlagZ && ~Control)
+ 		RB = A;
+	else
+		RB = B;
 
-     else
-	X = A;
     end
 endmodule
