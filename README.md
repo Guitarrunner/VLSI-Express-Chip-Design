@@ -37,7 +37,7 @@ In order to start the interface, you must write the following command:
 
 ```bash
 # Run Interface
-python3 scriptMaster.py -g
+python scriptMaster.py -g
 ```
 
 ### Via Terminal
@@ -45,7 +45,7 @@ In order to run the analysis, the following command must be used:
 
 ```bash
 # Run in Terminal
-python3 scriptMaster.py fileName.v -typeAnalysis
+python scriptMaster.py fileName.v -typeAnalysis
 ```
 The types of analysis available are:
 - -l: check lint's rule
