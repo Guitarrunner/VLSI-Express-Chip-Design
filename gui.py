@@ -9,6 +9,8 @@ from pathlib import Path
 from tkinter import *
 from pygments.lexers.hdl import VerilogLexer
 from pygments.styles import get_style_by_name
+from PIL import Image, ImageTk
+import tkinter as tk
 
 # Interface
 class Gui:
@@ -27,11 +29,33 @@ class Gui:
         self.redo_icon = PhotoImage(file='icons/redo.png')
         self.run_icon = PhotoImage(file='icons/run.png')
 
-        #  BackGround
+        #BackGround
+        self.background_image=PhotoImage(file = 'Background/GREEN.png')
+        self.background_label = Label(master=root, image=self.background_image)
+        self.background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.background_label.image = self.background_image
 
-        bkg = PhotoImage(file = "C:\\Users\\toshi\\Downloads\\Beneficios oGT.jpg")
-        #background_label = Label(root, image=bkg)
-        #background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        ##IMPORTANTE DE HACER QUE LOGRE REAJUSTAR CUANDO SE HACE MAYOR O MENOS LA PESTANA
+        """ 
+        from PIL import Image, ImageTk
+
+        def resize_image(event):
+            new_width = event.width
+            new_height = event.height
+            image = copy_of_image.resize((self.master.winfo_width(),self.master.winfo_height()))
+            photo = ImageTk.PhotoImage(image)
+            label.config(image = photo)
+            label.image = photo #avoid garbage collection
+
+        image = Image.open('Background/GREEN.png')
+        copy_of_image = image.copy()
+        photo = ImageTk.PhotoImage(image)
+        label = ttk.Label(root, image = photo)
+        #label.place(x=0, y=0, relwidth=0, relheight=0)
+        label.pack(fill=BOTH, expand = YES)
+        label.bind('<Configure>', resize_image)
+        """
+       
 
         self.menu_bar = Menu(self.root)
         self.file_menu = Menu(self.menu_bar, tearoff=0)
@@ -94,7 +118,6 @@ class Gui:
             'Olive Green': '#D1E7E0.#5B8340',
             'Night Mode': '#FFFFFF.#000000',
             'Night': '#4A4C4B.#FFFFFF',
-
         }
 
         self.theme_choice = StringVar()
@@ -497,6 +520,8 @@ class Gui:
         self.content_text.event_generate("<<Redo>>")
         self.on_content_changed()
         return 'break'
+
+
 root = Tk()
 gui = Gui(root)
 root.mainloop()
