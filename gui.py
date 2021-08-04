@@ -93,6 +93,8 @@ class Gui:
             'Cobalt Blue': '#ffffBB.#3333aa',
             'Olive Green': '#D1E7E0.#5B8340',
             'Night Mode': '#FFFFFF.#000000',
+            'Night': '#4A4C4B.#FFFFFF',
+
         }
 
         self.theme_choice = StringVar()
