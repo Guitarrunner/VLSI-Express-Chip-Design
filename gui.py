@@ -16,6 +16,7 @@ import tkinter as tk
 class Gui:
     def __init__(self,root):
         self.root = root
+        self.lexer = VerilogLexer() ##ADD syntax highlighter verilog 
         self.root.title("VLSI")
         self.root.geometry("1180x670")
 
@@ -110,21 +111,26 @@ class Gui:
         self.view_menu.add_cascade(label='Themes', menu=self.themes_menu)
 
         self.color_schemes = {
-            'Default': '#000000.#FFFFFF',
+            'Green': '#FFFFFF.#4A4C4B',
+            'White': '#000000.#FFFFFF',
             'Greygarious': '#83406A.#D1D4D1',
             'Aquamarine': '#5B8340.#D1E7E0',
             'Bold Beige': '#4B4620.#FFF0E1',
             'Cobalt Blue': '#ffffBB.#3333aa',
             'Olive Green': '#D1E7E0.#5B8340',
             'Night Mode': '#FFFFFF.#000000',
-            'Night': '#4A4C4B.#FFFFFF',
         }
 
         self.theme_choice = StringVar()
-        self.theme_choice.set('Default')
+        self.theme_choice.set('Green')
+        selected_theme = self.theme_choice.get()
+        fg_bg_colors = self.color_schemes.get(selected_theme)
+        foreground_color, background_color = fg_bg_colors.split('.')
+        
         for k in sorted(self.color_schemes):
             self.themes_menu.add_radiobutton(
                 label=k, variable=self.theme_choice, command=self.change_theme)
+
         self.menu_bar.add_cascade(label='View', menu=self.view_menu)
 
         self.about_menu = Menu(self.menu_bar, tearoff=0)
@@ -133,8 +139,8 @@ class Gui:
         self.menu_bar.add_cascade(label='About',  menu=self.about_menu)
         self.root.config(menu=self.menu_bar)
 
-        self.shortcut_bar = Frame(self.root,  height=25, background='DeepSkyBlue2')
-        self.shortcut_bar.pack(expand='no', fill='x')
+        self.shortcut_bar = Frame(self.root, width=4, height=14 ,padx=3, background='white') #144533
+        self.shortcut_bar.pack(expand='no',side='left')
 
         icons = ('new_file', 'open_file', 'save', 'cut', 'copy', 'paste',
                 'undo', 'redo', 'find_text', 'run')
@@ -143,22 +149,27 @@ class Gui:
             cmd = eval("self."+icon)
             self.tool_bar = Button(self.shortcut_bar, image=tool_bar_icon, command=cmd)
             self.tool_bar.image = tool_bar_icon
-            self.tool_bar.pack(side='left')
+            self.tool_bar.pack(side='top', padx=0)
 
         # Content text
-        self.line_number_bar = Text(self.root, width=4, height=14 ,padx=3, takefocus=0,  border=0, 
-                            background='DarkOliveGreen1', state='disabled',  wrap='none')
-        self.line_number_bar.pack(side='left',ipadx=5, anchor='n')
+        self.line_number_bar = Text(self.root, width=3, takefocus=0,  border=0, 
+                            background='#4A4C4B', state='disable')
+        
+        self.line_number_bar.pack(side='left', anchor='ne', pady=50)
+        self.line_number_bar.config(background=background_color, fg=foreground_color)
 
         self.content_text = Text(self.root, wrap='word', undo=1)
-        self.content_text.pack(side='left', anchor='n', ipadx= 400, ipady= 70, expand='yes')
+        
+        self.content_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=50, expand='yes', fill='x')
 
         self.scroll_bar = Scrollbar(self.content_text)
         self.content_text.configure(yscrollcommand=self.scroll_bar.set)
+        #self.line_number_bar.configure(yscrollcommand=self.scroll_bar.set)
         self.scroll_bar.config(command=self.content_text.yview)
-        self.scroll_bar.pack(side='right')
+        self.content_text.config(background=background_color, fg=foreground_color)
+        self.scroll_bar.pack(anchor='ne',fill='y', expand='yes')
         self.cursor_info_bar = Label(self.content_text, text='Line: 1 | Column: 1')
-        self.cursor_info_bar.pack(expand='no', fill=None, side='right', anchor='se')
+        self.cursor_info_bar.pack(expand='no', fill=None, side='top', anchor='se')
 
         self.content_text.bind('<KeyPress-F1>', self.display_help_messagebox)
         self.content_text.bind('<Control-N>', self.new_file)
@@ -183,12 +194,13 @@ class Gui:
 
         # Result text
         self.result_text = Text(self.root, wrap='word', undo=1)
-        self.result_text.pack(side='bottom', ipadx= 200, expand='yes', anchor= 'w')
+        self.result_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
 
         self.result_scroll_bar = Scrollbar(self.result_text)
         self.result_text.configure(yscrollcommand=self.result_scroll_bar.set)
         self.result_scroll_bar.config(command=self.result_text.yview)
         self.result_scroll_bar.pack(anchor='ne',fill='y', expand='yes')
+        self.result_text.config(background=background_color, fg=foreground_color)
 
 
         # set up the pop-up menu
@@ -209,6 +221,8 @@ class Gui:
         self.create_tags()
         self.bootstrap = [self.recolorize]
 
+        
+        
 
     # show pop-up menu
     def show_popup_menu(self,event):
@@ -232,6 +246,7 @@ class Gui:
 
     def change_theme(self,event=None):
         selected_theme = self.theme_choice.get()
+        print(selected_theme)
         fg_bg_colors = self.color_schemes.get(selected_theme)
         foreground_color, background_color = fg_bg_colors.split('.')
         self.content_text.config(
@@ -327,7 +342,7 @@ class Gui:
         italic_font.configure(slant=font.ITALIC)
         bold_italic_font = font.Font(self.content_text, self.content_text.cget("font"))
         bold_italic_font.configure(weight=font.BOLD, slant=font.ITALIC)
-        style = get_style_by_name('emacs')
+        style = get_style_by_name('vim')
         
         for ttype, ndef in style:
             tag_font = None
