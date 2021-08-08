@@ -11,11 +11,14 @@ from pygments.lexers.hdl import VerilogLexer
 from pygments.styles import get_style_by_name
 from PIL import Image, ImageTk
 import tkinter as tk
+import tkinter
+from tkinter import ttk
 
 # Interface
 class Gui:
     def __init__(self,root):
         self.root = root
+
         self.lexer = VerilogLexer() ##ADD syntax highlighter verilog 
         self.root.title("VLSI")
         self.root.geometry("1180x670")
@@ -158,12 +161,17 @@ class Gui:
         self.line_number_bar.pack(side='left', anchor='ne', pady=50)
         self.line_number_bar.config(background=background_color, fg=foreground_color)
 
+
+
         self.content_text = Text(self.root, wrap='word', undo=1)
+
         
+
         self.content_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=50, expand='yes', fill='x')
 
         self.scroll_bar = Scrollbar(self.content_text)
         self.content_text.configure(yscrollcommand=self.scroll_bar.set)
+        
         #self.line_number_bar.configure(yscrollcommand=self.scroll_bar.set)
         self.scroll_bar.config(command=self.content_text.yview)
         self.content_text.config(background=background_color, fg=foreground_color)
@@ -192,15 +200,95 @@ class Gui:
         #self.content_text.bind('<Return>', self.autoindent)
         self.root.bind("<Key>", self.event_key)
 
-        # Result text
-        self.result_text = Text(self.root, wrap='word', undo=1)
-        self.result_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
+        
 
+        # Result text
+
+        
+
+
+    
+
+        self.style = ttk.Style()  
+
+        self.style.theme_create(
+        "name", parent="alt", settings = {
+            ".": {"configure": {"background": '#4A4C4B',
+                                "foreground": "white",
+                                "relief": "flat"}, "side": 'right'},
+            "TLabel": {"configure": {"foreground": "white",
+                       "padding": 10,
+                       "font": ("Arial", 16)}},
+            "TNotebook": {
+              "configure": {"tabmargins": [2, 5, 2, 0]},
+              "borderwidth": 0 
+            },
+            "TNotebook.Tab": {
+                  "configure": {
+                                "borderwidth": 0,
+                                "bordercolor" : '#4A4C4B',
+                                "darkcolor" : '#4A4C4B',
+                                "lightcolor" : '#4A4C4B',
+                                "padding": [5, 1], "background": '#4A4C4B'
+                                }
+                  ,
+                "map": {"background": [("selected", '#4A4C4B')],
+                        "expand": [("selected", [1, 1, 1, 0])]}
+            }
+        })
+
+        self.style.theme_use("name")  
+
+        
+
+        self.tab_styles = {}
+        
+        self.nb = ttk.Notebook(width=200, height=200)
+        self.nb.pack(expand='no', fill=None, side='right', anchor='se')
+        self.nb.pressed_index = None
+
+        #Pestaña All
+        self.result_text = tkinter.Text(self.nb, wrap='word', undo=1)
+        self.result_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
         self.result_scroll_bar = Scrollbar(self.result_text)
         self.result_text.configure(yscrollcommand=self.result_scroll_bar.set)
         self.result_scroll_bar.config(command=self.result_text.yview)
         self.result_scroll_bar.pack(anchor='ne',fill='y', expand='yes')
         self.result_text.config(background=background_color, fg=foreground_color)
+
+        #Pestaña Warnings
+        self.result_warnings = tkinter.Text(self.nb, wrap='word', undo=1)
+        self.result_warnings.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
+        self.result_scroll_bar_2 = Scrollbar(self.result_warnings)
+        self.result_warnings.configure(yscrollcommand=self.result_scroll_bar_2.set)
+        self.result_scroll_bar_2.config(command=self.result_warnings.yview)
+        self.result_scroll_bar_2.pack(anchor='ne',fill='y', expand='yes')
+        self.result_warnings.config(background=background_color, fg=foreground_color)
+
+        #Pestaña Errors
+        self.result_errors = tkinter.Text(self.nb, wrap='word', undo=1)
+        self.result_errors.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
+        self.result_scroll_bar_3 = Scrollbar(self.result_errors)
+        self.result_errors.configure(yscrollcommand=self.result_scroll_bar_3.set)
+        self.result_scroll_bar_3.config(command=self.result_errors.yview)
+        self.result_scroll_bar_3.pack(anchor='ne',fill='y', expand='yes')
+        self.result_errors.config(background=background_color, fg=foreground_color)
+
+
+        self.nb.add(self.result_text, text="All")
+        self.tab_styles["All"] = {}
+
+        self.nb.add(self.result_warnings, text="Warnings")
+        self.tab_styles["Warnings"] = {}
+
+        self.nb.add(self.result_errors, text="Errors")
+        self.tab_styles["Errors"] = {}
+
+        self.nb.pack(expand=1, fill='both')
+        
+
+
+        
 
 
         # set up the pop-up menu
@@ -221,8 +309,7 @@ class Gui:
         self.create_tags()
         self.bootstrap = [self.recolorize]
 
-        
-        
+  
 
     # show pop-up menu
     def show_popup_menu(self,event):
