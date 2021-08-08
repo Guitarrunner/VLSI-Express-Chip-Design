@@ -204,11 +204,6 @@ class Gui:
 
         # Result text
 
-        
-
-
-    
-
         self.style = ttk.Style()  
 
         self.style.theme_create(
@@ -239,15 +234,13 @@ class Gui:
 
         self.style.theme_use("name")  
 
-        
-
         self.tab_styles = {}
         
         self.nb = ttk.Notebook(width=200, height=200)
-        self.nb.pack(expand='no', fill=None, side='right', anchor='se')
+        
         self.nb.pressed_index = None
 
-        #Pestaña All
+        #Tab All
         self.result_text = tkinter.Text(self.nb, wrap='word', undo=1)
         self.result_text.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
         self.result_scroll_bar = Scrollbar(self.result_text)
@@ -256,7 +249,7 @@ class Gui:
         self.result_scroll_bar.pack(anchor='ne',fill='y', expand='yes')
         self.result_text.config(background=background_color, fg=foreground_color)
 
-        #Pestaña Warnings
+        #Tab Warnings
         self.result_warnings = tkinter.Text(self.nb, wrap='word', undo=1)
         self.result_warnings.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
         self.result_scroll_bar_2 = Scrollbar(self.result_warnings)
@@ -265,7 +258,7 @@ class Gui:
         self.result_scroll_bar_2.pack(anchor='ne',fill='y', expand='yes')
         self.result_warnings.config(background=background_color, fg=foreground_color)
 
-        #Pestaña Errors
+        #Tab Errors
         self.result_errors = tkinter.Text(self.nb, wrap='word', undo=1)
         self.result_errors.pack(side='top', anchor='nw', ipadx= 400, ipady= 100, padx=0, pady=0, expand='yes', fill='x')
         self.result_scroll_bar_3 = Scrollbar(self.result_errors)
@@ -286,10 +279,6 @@ class Gui:
 
         self.nb.pack(expand=1, fill='both')
         
-
-
-        
-
 
         # set up the pop-up menu
         self.popup_menu = Menu(self.content_text)
