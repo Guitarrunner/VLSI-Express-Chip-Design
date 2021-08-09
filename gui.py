@@ -142,7 +142,7 @@ class Gui:
         self.menu_bar.add_cascade(label='About',  menu=self.about_menu)
         self.root.config(menu=self.menu_bar)
 
-        self.shortcut_bar = Frame(self.root, width=4, height=14 ,padx=3, background='white') #144533
+        self.shortcut_bar = Frame(self.root, width=4, height=14 ,padx=3, background='white', bd=0, bg='#4A4C4B') #144533
         self.shortcut_bar.pack(expand='no',side='left')
 
         icons = ('new_file', 'open_file', 'save', 'cut', 'copy', 'paste',
@@ -150,7 +150,7 @@ class Gui:
         for i, icon in enumerate(icons):
             tool_bar_icon = PhotoImage(file='icons/{}.png'.format(icon))
             cmd = eval("self."+icon)
-            self.tool_bar = Button(self.shortcut_bar, image=tool_bar_icon, command=cmd)
+            self.tool_bar = Button(self.shortcut_bar, image=tool_bar_icon, command=cmd, )
             self.tool_bar.image = tool_bar_icon
             self.tool_bar.pack(side='top', padx=0)
 
@@ -298,7 +298,7 @@ class Gui:
         self.create_tags()
         self.bootstrap = [self.recolorize]
 
-  
+    
 
     # show pop-up menu
     def show_popup_menu(self,event):
