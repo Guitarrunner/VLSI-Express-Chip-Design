@@ -55,13 +55,13 @@ class Gui:
         
         
     def new_win(self):
-        print('perro1')
+        
         root.destroy()
         import gui
         #q.mainloop()
         
     def bar(self):
-        print('perro')
+        
         l4=Label(root,text='Loading...',fg='white',bg='blue')
         lst4=('Calibri (Body)',10)
         l4.config(font=lst4)
