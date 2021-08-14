@@ -1,5 +1,4 @@
 1:8 Declared module does not match the first dot-delimited component of file name: "fileMaster"
-<<<<<<< Updated upstream
 9:4 Use 'always_comb' instead of 'always @*'.
 10:1 Use spaces, not tabs.
 11:2 Use spaces, not tabs.
@@ -11,30 +10,3 @@
 20:1 Use spaces, not tabs.
 21:1 Use spaces, not tabs.
 24:10 File must end with a newline.
-=======
-1:36 Remove trailing spaces.
-2:1 Remove trailing spaces.
-3:52 Remove trailing spaces.
-4:15 Remove trailing spaces.
-5:1 Remove trailing spaces.
-6:25 Remove trailing spaces.
-7:29 Remove trailing spaces.
-8:25 Remove trailing spaces.
-9:1 Remove trailing spaces.
-10:19 Remove trailing spaces.
-11:1 Remove trailing spaces.
-12:26 Remove trailing spaces.
-13:1 Remove trailing spaces.
-14:5 Use 'always_comb' instead of 'always @*'.
-14:22 Remove trailing spaces.
-15:43 Remove trailing spaces.
-16:1 Remove trailing spaces.
-17:1 Use spaces, not tabs.
-17:9 Remove trailing spaces.
-18:1 Remove trailing spaces.
-19:10 Remove trailing spaces.
-20:1 Use spaces, not tabs.
-20:8 Remove trailing spaces.
-21:8 Remove trailing spaces.
-22:10 Remove trailing spaces.
->>>>>>> Stashed changes

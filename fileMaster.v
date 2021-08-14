@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 module O_Opera (A,B, Control, FlagZ, RA, RB);
 
 //BW = 8 bits
@@ -23,5 +22,3 @@ always@(*) begin
 
     end
 endmodule
-=======
->>>>>>> Stashed changes
