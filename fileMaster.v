@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+=======
+>>>>>>> main
 module O_Opera (A,B, Control, FlagZ, RA, RB);
 
 //BW = 8 bits
@@ -23,8 +26,12 @@ always@(*) begin
 		RB = B;
 
     end
+<<<<<<< HEAD
 endmodule
 =======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+endmodule
+>>>>>>> main

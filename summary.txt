@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  Declared module does not match the first dot-delimited component of file name: "fileMaster"' is being violated 1 times
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -11,3 +12,5 @@
  Use 'always_comb' instead of 'always @*'.' is being violated 1 times
  Use spaces, not tabs.' is being violated 2 times
 >>>>>>> Stashed changes
+=======
+>>>>>>> main

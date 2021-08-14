@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1:8 Declared module does not match the first dot-delimited component of file name: "fileMaster"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
@@ -44,3 +45,5 @@
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
