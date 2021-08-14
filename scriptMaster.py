@@ -56,6 +56,9 @@ validation = {
                                         ["path",["--file_list_path ","--file_list_root"]],
                                         ["cs",["--include_dir_paths"]]
                                         ]],
+                "-d":   ["Diff",        [
+                                        ["m","--mode"]
+                                        ]],
                 "-o":   ["Obfuscator",  [
                                         ["tf",  ["--decode","--preserve_interface"]],
                                         ["path",["--load_map","--save_map"]]
@@ -171,71 +174,70 @@ def inputValidation(parameters):
 
     #print(commands)
     for cmd in commands:
-        if cmd[0] != "-d":
-            # Verification of the flags corresponding to the analyzes
-            if len(cmd) > 1:
-                typeValidation = validation.get(cmd[0])
-                m = typeValidation[1]
-                result = -1
-                validationType = ""
-                for flag in cmd[1:]:
-                    aux_flag = flag.split("=",1)
-                    for i in m:
-                        if aux_flag[0] in i[1]:
-                            result = 0
-                            validationType = i[0]
+        # Verification of the flags corresponding to the analyzes
+        if len(cmd) > 1:
+            typeValidation = validation.get(cmd[0])
+            m = typeValidation[1]
+            result = -1
+            validationType = ""
+            for flag in cmd[1:]:
+                aux_flag = flag.split("=",1)
+                for i in m:
+                    if aux_flag[0] in i[1]:
+                        result = 0
+                        validationType = i[0]
+            
+                if result != 0:
+                    print("[ERROR] The " + flag + " flag is not valid for " + typeValidation[0])
+                    return -1
                 
-                    if result != 0:
-                        print("[ERROR] The " + flag + " flag is not valid for " + typeValidation[0])
+                # Checking the flags arguments
+                if validationType == "cs":
+                    if aux_flag[0] != "--flagfile":
+                        argFlags = aux_flag[1].split(",")
+                        for arg in argFlags:
+                            aux_arg = arg.split("=")
+                            result = -1
+                            for i in m:
+                                if aux_arg[0] in i[1]:
+                                    result = 0
+                            if result != 0:
+                                print("[ERROR] The argument " + arg + " is not valid for the flag" + aux_flag[0])
+                                return -1
+
+                elif validationType == "path":
+                    path = aux_flag[1]
+                    if os.path.exists(path) != True:
+                        print("[ERROR] Directory " + path +" does not exist")
                         return -1
                     
-                    # Checking the flags arguments
-                    if validationType == "cs":
-                        if aux_flag[0] != "--flagfile":
-                            argFlags = aux_flag[1].split(",")
-                            for arg in argFlags:
-                                aux_arg = arg.split("=")
-                                result = -1
-                                for i in m:
-                                    if aux_arg[0] in i[1]:
-                                        result = 0
-                                if result != 0:
-                                    print("[ERROR] The argument " + arg + " is not valid for the flag" + aux_flag[0])
-                                    return -1
+                elif validationType == "h":
+                    pass
+                
+                elif validationType == "n":
+                    try:
+                        num = int(aux_flag[1])
+                    except:
+                        print("[ERROR] Argument " + aux_flag[1] +" is not valid")
+                        return -1
 
-                    elif validationType == "path":
-                        path = aux_flag[1]
-                        if os.path.exists(path) != True:
-                            print("[ERROR] Directory " + path +" does not exist")
-                            return -1
-                        
-                    elif validationType == "h":
+                elif validationType == "set" or "des" or "tf" or "ru" or "al" or "id" or "m":
+                    multipleOption = {
+                                    "set":  ["default","all","none"],
+                                    "des":  ["yes","no","interactive"],
+                                    "tf":   ["true","false"],
+                                    "ru":   ["all"],
+                                    "al":   ["align","flush-left","preserve","infer"],
+                                    "id":   ["indent","wrap"],
+                                    "m":    ["format","obfuscate"],
+                                    "jp":   ["json","proto"]
+                                    }
+
+                    if aux_flag[1] in multipleOption.get(validationType):
                         pass
-                    
-                    elif validationType == "n":
-                        try:
-                            num = int(aux_flag[1])
-                        except:
-                            print("[ERROR] Argument " + aux_flag[1] +" is not valid")
-                            return -1
-
-                    elif validationType == "set" or "des" or "tf" or "ru" or "al" or "id" or "m":
-                        multipleOption = {
-                                        "set":  ["default","all","none"],
-                                        "des":  ["yes","no","interactive"],
-                                        "tf":   ["true","false"],
-                                        "ru":   ["all"],
-                                        "al":   ["align","flush-left","preserve","infer"],
-                                        "id":   ["indent","wrap"],
-                                        "m":    ["format","obfuscate"],
-                                        "jp":   ["json","proto"]
-                                        }
-
-                        if aux_flag[1] in multipleOption.get(validationType):
-                            pass
-                        else:
-                            print("[ERROR] Argument " + aux_flag[1] +" is not valid")
-                            return -1
+                    else:
+                        print("[ERROR] Argument " + aux_flag[1] +" is not valid")
+                        return -1
     return commands
 
 def dataTreatment():
