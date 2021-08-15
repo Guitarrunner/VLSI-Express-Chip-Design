@@ -329,10 +329,46 @@ def aux_terminal(filePath,analysisType):
             if(Path("log.txt").stat().st_size != 0):
                 print("\n[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
 
+# UI Functions
+
 @eel.expose
 def api(data):
-    print("[INFO] Succesful conection with ui")
     print(data)
+
+@eel.expose
+def apiOpenFile():
+    # Get path 
+    root = Tk()
+    root.withdraw()
+    root.update()
+    filePath = tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+    root.destroy()
+    # Content
+    text = open(filePath,'r').read()
+    print("[INFO] Open file completed")
+    return [text,os.path.basename(filePath),filePath]
+
+@eel.expose
+def apiSaveAs(content):
+    # Get Path
+    root = Tk()
+    root.withdraw()
+    root.update()
+    filePath = tkinter.filedialog.asksaveasfilename(defaultextension=".v")
+    root.destroy()
+    # Content
+    file = open(filePath,'w')
+    file.write(content)
+    file.close()
+    print("[INFO] Save as completed")
+    return [os.path.basename(filePath),filePath]
+
+@eel.expose
+def apiSave(content):
+    file = open(content[1],'w')
+    file.write(content[0])
+    file.close()
+    print("[INFO] Save completed")
 
 
 # Verification for update

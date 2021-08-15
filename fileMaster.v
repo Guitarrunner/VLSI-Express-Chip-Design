@@ -5,7 +5,7 @@
 >>>>>>> main
 module O_Opera (A,B, Control, FlagZ, RA, RB);
 
-//BW = 8 bits
+//BW = 16 bits
 
 input [7:0] A, B;
 input Control, FlagZ;

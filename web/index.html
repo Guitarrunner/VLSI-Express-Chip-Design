@@ -29,13 +29,53 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">File</a>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">New</a>
-                        <a href="#" class="dropdown-item">Open</a>
-                        <a href="#" class="dropdown-item">Save</a>
-                        <a href="#" class="dropdown-item">Save as</a>
-                        <a href="#" class="dropdown-item">Run</a>
+                        <a href="#" class="dropdown-item" onclick="newDoc()"><i class="fas fa-file"></i> New</a>
+
+                        <a href="#" class="dropdown-item" onclick="openFile()"><i class="fas fa-folder"></i> Open</a>
+
+                        <a href="#" class="dropdown-item" onclick="save()"><i class="fas fa-save"></i> Save</a>
+
+                        <a href="#" class="dropdown-item" onclick="saveAs()"><i class="far fa-save"></i> Save as</a>
+
+                        <a href="#" class="dropdown-item"><i class="fas fa-play"></i> Run</a>
+
+                        <a href="#" class="dropdown-item"><i class="fas fa-times-circle"></i> Exit</a>
                     </div>
                 </li>
+
+              <li class="nav-item dropdown">
+                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">Edit</a>
+                  <div class="dropdown-menu">
+                      <a href="#" class="dropdown-item"><i class="fas fa-undo"></i> Undo</a>
+
+                      <a href="#" class="dropdown-item"><i class="fas fa-redo"></i> Redo</a>
+
+                      <a href="#" class="dropdown-item"><i class="fas fa-cut"></i> Cut</a>
+
+                      <a href="#" class="dropdown-item"><i class="fas fa-copy"></i> Copy</a>
+
+                      <a href="#" class="dropdown-item"><i class="fas fa-paste"></i> Paste</a>
+
+                      <a href="#" class="dropdown-item"><i class="fas fa-search"></i> Find</a>
+
+                  </div>
+              </li>
+
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">View</a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Show Tap Bar</a>
+
+                    <a href="#" class="dropdown-item">Show All Tabs</a>
+
+                    <a href="#" class="dropdown-item">Show Line Numbers</a>
+
+                    <a href="#" class="dropdown-item">Show Cursor Location at Bottom</a>
+
+                    <a href="#" class="dropdown-item">Highlight Current Line</a>
+
+                </div>
+            </li>
 
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">About</a>
@@ -53,6 +93,7 @@
 </div>
     <div class="row">
         <div class="column">
+          <p style="width: 500px;color: white;background-color: #4A4C4B;"></p>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="postRequest('racsoTest')" style=background-color:#166648;border:#166648><i class="fas fa-play"></i></button>
                 <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-search"></i></i></button>
@@ -62,9 +103,13 @@
         </div>
         <label rows="1" class="rowcols" readonly="readonly" id="rowcols" name="rowcols" >Fila: | Columna: </label> 
         <div class="column">
-          
-          <textarea rows="8" cols="30" class="lined-textarea" id="text"></textarea>
+          <div class="tab" style="text-align: center;width: 170px; height: 25px;"> 
+            <p id="fileName"> Untitled document </p>
+            <p id="filePath" style="display: none;"></p>
+          </div>
 
+          <textarea id="content_text" rows="8" cols="30" class="lined-textarea"></textarea>
+            
             <div class="tab">
                 <button class="tablinks" onclick="openCity(event, 'All')">All</button>
                 <button class="tablinks" onclick="openCity(event, 'Warnings')">Warnings</button>
