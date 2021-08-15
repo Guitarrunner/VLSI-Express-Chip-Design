@@ -1,4 +1,4 @@
-// Navbar 
+// Navbar File
 function postRequest(data){
 	eel.api(data)
 }
@@ -35,6 +35,33 @@ function newDoc(){
 	document.getElementById("fileName").innerHTML = "Untitled Document"
 	document.getElementById("filePath").innerHTML = ""
 }
+
+// Navbar Edit
+function undoBtn(){
+	document.execCommand("undo")
+}
+
+function redoBtn(){
+	document.execCommand("redo")
+}
+
+function cutBtn(){
+	document.execCommand("cut")
+}
+
+function copyBtn(){
+	document.execCommand("copy")
+}
+
+function pasteBtn(){
+	document.execCommand("paste")
+}
+
+function selectAllBtn(){
+	document.execCommand("selectAll")
+}
+
+
 
 // Test
 function test(){
