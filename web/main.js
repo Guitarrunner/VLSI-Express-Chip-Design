@@ -36,6 +36,8 @@ function newDoc(){
 	document.getElementById("filePath").innerHTML = ""
 }
 
+
+
 // Navbar Edit
 function undoBtn(){
 	document.execCommand("undo")
@@ -60,6 +62,18 @@ function pasteBtn(){
 function selectAllBtn(){
 	document.execCommand("selectAll")
 }
+
+function background1() {
+            document.body.style.backgroundImage = "url(img/bg-img/BLUE.png)"
+          }
+
+		  function background2() {
+            document.body.style.backgroundImage = "url(img/bg-img/WHITE.png)"
+          }
+
+		  function background3() {
+            document.body.style.backgroundImage = "url(img/bg-img/GREEN.png)"
+          }
 
 
 
