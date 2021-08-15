@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Source+Code+Pro&display=swap');
 @import 'css/bootstrap.min.css';
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
 
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+#full-size{
+  height:100%;
+  width:100%;
+  overflow:auto; /* or overflow:auto; if you want scrollbars */
+}
 body {
     width: max-content;
     background-image: url(img/bg-img/GREEN.png);
     background-size:cover;
     background-position: center;
+   
 
 }
 
@@ -49,6 +52,13 @@ body {
   color: white;
 }
 
+.rowcols {
+  z-index: 1;
+  position: absolute;
+  padding-left: 75%;
+  color: white;
+}
+
 /* Result Tabs */
 .tab {
   overflow: hidden;
@@ -84,6 +94,7 @@ body {
 }
 
 .tabcontent {
+  overflow: hidden;
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
