@@ -61,14 +61,15 @@ function selectAllBtn(){
 	document.execCommand("selectAll")
 }
 
+// Run
+function runBtn(){
+	var path = document.getElementById("filePath").innerHTML
+	var content = document.getElementById("analysis_content").value
+	eel.apiRun([path,content])(aux_runBtn)
+}
 
-
-// Test
-function test(){
-	document.getElementById("ErrorText").value = document.getElementById("file-input").files[0].name
-	document.getElementById("AllText").value = "eoooooo"
-	document.getElementById("WarningsText").value = "racso"
-	var url = URL.createObjectURL(document.getElementById("file-input").files[0]);
-	postRequest(url)
-	eel.testing()
+function aux_runBtn(data){
+	document.getElementById("ErrorText").value = data[0]
+	document.getElementById("WarningsText").value = data[1]
+	document.getElementById("analysis_content").value = "Type analysis"
 }

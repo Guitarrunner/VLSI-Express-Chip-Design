@@ -370,6 +370,14 @@ def apiSave(content):
     file.close()
     print("[INFO] Save completed")
 
+@eel.expose
+def apiRun(data):
+    filePath = data[0]
+    arguments = data[1].split(" ")
+    workflow(filePath,arguments)
+    log = open('log.txt','r').read()
+    warnings = open('summary.txt','r').read()
+    return [log,warnings]
 
 # Verification for update
 try:

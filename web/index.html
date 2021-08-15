@@ -37,7 +37,7 @@
 
                         <a href="#" class="dropdown-item" onclick="saveAs()"><i class="far fa-save"></i> Save as</a>
 
-                        <a href="#" class="dropdown-item"><i class="fas fa-play"></i> Run</a>
+                        <a href="#" class="dropdown-item" onclick="runBtn()"><i class="fas fa-play"></i> Run</a>
 
                     </div>
                 </li>
@@ -55,7 +55,7 @@
 
                       <a href="#" class="dropdown-item" onclick="pasteBtn()"><i class="fas fa-paste"></i> Paste</a>
 
-                      <a href="#" class="dropdown-item" onclick="selectAllBtn()"><i class="fas fa-search"></i> Select All</a>
+                      <a href="#" class="dropdown-item" onclick="selectAllBtn()"> Select All</a>
 
                   </div>
               </li>
@@ -72,26 +72,6 @@
                 </div>
             </li>
 
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">Analysis</a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Parser</a>
-
-                    <a href="#" class="dropdown-item">Style Linter</a>
-
-                    <a href="#" class="dropdown-item">Formatter</a>
-
-                    <a href="#" class="dropdown-item">Lexical Diff</a>
-
-                    <a href="#" class="dropdown-item">Verible project tool</a>
-
-                    <a href="#" class="dropdown-item">Code Obfuscator</a>
-
-                    <a href="#" class="dropdown-item">Source Code Indexer</a>
-
-                </div>
-            </li>
-
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">About</a>
                   <div class="dropdown-menu">
@@ -100,9 +80,11 @@
                   </div>
               </li>
 
+              <form class="form-inline">
+                <input id="analysis_content" class="form-control mr-sm-2" type="search" placeholder="Type Analysis" aria-label="Search" onkeypress="return event.keyCode != 13;" style="position: relative; left: 570px; width: 500px;">
+              </form>
 
             </ul>
-          
         </div>
     </nav>
 </div>
@@ -110,7 +92,7 @@
         <div class="column">
           <p style="width: 500px;color: white;background-color: #4A4C4B;"></p>
             <div class="btn-group-vertical">
-                <button type="button" class="btn btn-primary" onclick="postRequest('racsoTest')" style=background-color:#166648;border:#166648><i class="fas fa-play"></i></button>
+                <button type="button" class="btn btn-primary" onclick="runBtn()" style=background-color:#166648;border:#166648><i class="fas fa-play"></i></button>
                 <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-search"></i></i></button>
                 <button type="button" class="btn btn-primary" onclick="undoBtn()" style=background-color:#166648;border:#166648><i class="fas fa-undo"></i></button>
                 <button type="button" class="btn btn-primary" onclick="redoBtn()" style=background-color:#166648;border:#166648><i class="fas fa-redo-alt"></i></button>
@@ -128,7 +110,7 @@
             <div class="tab">
                 <button class="tablinks" onclick="openCity(event, 'All')">All</button>
                 <button class="tablinks" onclick="openCity(event, 'Warnings')">Warnings</button>
-                <button class="tablinks" onclick="openCity(event, 'Error'); test()">Error</button>
+                <button class="tablinks" onclick="openCity(event, 'Error')">Error</button>
               </div>
               
               <div id="All" class="tabcontent" style="display:block">

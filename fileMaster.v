@@ -1,37 +1,22 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
->>>>>>> main
-module O_Opera (A,B, Control, FlagZ, RA, RB);
+module Ajuste (A, FlagC, FlagZ, X);
 
-//BW = 16 bits
+//Ajusta mantisa si FlagC y FlagZ están encendidos
+//BW = 23 bits
 
-input [7:0] A, B;
-input Control, FlagZ;
-output reg [7:0] RA, RB;
+    input wire [22:0] A;
+    input wire FlagC, FlagZ;
+    output reg [22:0] X;
 
-   always@(*) begin
-	if (~FlagZ && ~Control)
- 		RA = B;
-	else
-		RA = A;
+    wire [22:0] D;
 
+    assign D = A >> 1'd1;
+    
+    always @(*) begin
+     if (FlagZ && FlagC | ~FlagZ && FlagC)
+
+	X = D ;	
+
+     else
+	X = A;
     end
-
-always@(*) begin
-	if (~FlagZ && ~Control)
- 		RB = A;
-	else
-		RB = B;
-
-    end
-<<<<<<< HEAD
 endmodule
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
-endmodule
->>>>>>> main
