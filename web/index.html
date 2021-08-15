@@ -45,11 +45,11 @@
               <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">Edit</a>
                   <div class="dropdown-menu">
-                      <a href="#" class="dropdown-item"onclick="undoBtn()"><i class="fas fa-undo"></i> Undo</a>
+                      <a href="#" class="dropdown-item" onclick="undoBtn()"><i class="fas fa-undo"></i> Undo</a>
 
-                      <a href="#" class="dropdown-item"onclick="redoBtn()"><i class="fas fa-redo"></i> Redo</a>
+                      <a href="#" class="dropdown-item" onclick="redoBtn()"><i class="fas fa-redo"></i> Redo</a>
 
-                      <a href="#" class="dropdown-item"onclick="cutBtn()"><i class="fas fa-cut"></i> Cut</a>
+                      <a href="#" class="dropdown-item" onclick="cutBtn()"><i class="fas fa-cut"></i> Cut</a>
 
                       <a href="#" class="dropdown-item" onclick="copyBtn()"><i class="fas fa-copy"></i> Copy</a>
 
@@ -63,15 +63,31 @@
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">View</a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Show Tap Bar</a>
+                    <a href="#" class="dropdown-item">Theme 1</a>
 
-                    <a href="#" class="dropdown-item">Show All Tabs</a>
+                    <a href="#" class="dropdown-item">Theme 2</a>
 
-                    <a href="#" class="dropdown-item">Show Line Numbers</a>
+                    <a href="#" class="dropdown-item">Theme 3</a>
 
-                    <a href="#" class="dropdown-item">Show Cursor Location at Bottom</a>
+                </div>
+            </li>
 
-                    <a href="#" class="dropdown-item">Highlight Current Line</a>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">Analysis</a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Parser</a>
+
+                    <a href="#" class="dropdown-item">Style Linter</a>
+
+                    <a href="#" class="dropdown-item">Formatter</a>
+
+                    <a href="#" class="dropdown-item">Lexical Diff</a>
+
+                    <a href="#" class="dropdown-item">Verible project tool</a>
+
+                    <a href="#" class="dropdown-item">Code Obfuscator</a>
+
+                    <a href="#" class="dropdown-item">Source Code Indexer</a>
 
                 </div>
             </li>
@@ -79,8 +95,8 @@
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">About</a>
                   <div class="dropdown-menu">
-                      <a href="#" class="dropdown-item">About</a>
-                      <a href="#" class="dropdown-item">Help</a>
+                      <a href="#" class="dropdown-item" onclick="location.href='https://teamdtlevelupvlsi.000webhostapp.com/';">About</a>
+                      <a href="#" class="dropdown-item" onclick="location.href='https://github.com/Guitarrunner/VLSI-Express-Chip-Design';">Help</a>
                   </div>
               </li>
 
@@ -96,8 +112,8 @@
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="postRequest('racsoTest')" style=background-color:#166648;border:#166648><i class="fas fa-play"></i></button>
                 <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-search"></i></i></button>
-                <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-undo"></i></button>
-                <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-redo-alt"></i></button>
+                <button type="button" class="btn btn-primary" onclick="undoBtn()" style=background-color:#166648;border:#166648><i class="fas fa-undo"></i></button>
+                <button type="button" class="btn btn-primary" onclick="redoBtn()" style=background-color:#166648;border:#166648><i class="fas fa-redo-alt"></i></button>
               </div>
         </div>
         <label rows="1" class="rowcols" readonly="readonly" id="rowcols" name="rowcols" >Fila: | Columna: </label> 
