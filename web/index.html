@@ -29,10 +29,14 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="color: white;">File</a>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item">New</a>
-                        <a href="#" class="dropdown-item">Open</a>
-                        <a href="#" class="dropdown-item">Save</a>
-                        <a href="#" class="dropdown-item">Save as</a>
+                        <a href="#" class="dropdown-item" onclick="newDoc()">New</a>
+
+                        <a href="#" class="dropdown-item" onclick="openFile()">Open</a>
+
+                        <a href="#" class="dropdown-item" onclick="save()">Save</a>
+
+                        <a href="#" class="dropdown-item" onclick="saveAs()">Save as</a>
+
                         <a href="#" class="dropdown-item">Run</a>
                     </div>
                 </li>
@@ -53,6 +57,7 @@
 </div>
     <div class="row">
         <div class="column">
+          <p style="width: 500px;color: white;background-color: #4A4C4B;"></p>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="postRequest('racsoTest')" style=background-color:#166648;border:#166648><i class="fas fa-play"></i></button>
                 <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-search"></i></i></button>
@@ -61,7 +66,12 @@
               </div>
         </div>
         <div class="column">
-          <textarea rows="8" cols="30" class="lined-textarea"> </textarea>
+          <div class="tab" style="text-align: center;width: 170px; height: 25px;"> 
+            <p id="fileName"> Untitled document </p>
+            <p id="filePath" style="display: none;"></p>
+          </div>
+
+          <textarea id="content_text" rows="8" cols="30" class="lined-textarea"></textarea>
             
             <div class="tab">
                 <button class="tablinks" onclick="openCity(event, 'All')">All</button>
