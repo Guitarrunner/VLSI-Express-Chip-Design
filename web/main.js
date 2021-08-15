@@ -63,15 +63,12 @@ function selectAllBtn(){
 	document.execCommand("selectAll")
 }
 
-
-
 // Run
 function runBtn(){
 	var path = document.getElementById("filePath").innerHTML
 	var content = document.getElementById("analysis_content").value
 	eel.apiRun([path,content])(aux_runBtn)
 }
-
 
 function background1() {
             document.body.style.backgroundImage = "url(img/bg-img/BLUE.png)"
