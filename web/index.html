@@ -100,6 +100,7 @@
                 <button type="button" class="btn btn-primary" style=background-color:#166648;border:#166648><i class="fas fa-redo-alt"></i></button>
               </div>
         </div>
+        <label rows="1" class="rowcols" readonly="readonly" id="rowcols" name="rowcols" >Fila: | Columna: </label> 
         <div class="column">
           <div class="tab" style="text-align: center;width: 170px; height: 25px;"> 
             <p id="fileName"> Untitled document </p>
@@ -129,6 +130,17 @@
       </div>
 
       <script>
+
+        
+        var popup = window.open("your_url", "popup", "fullscreen");
+          if (popup.outerWidth < screen.availWidth || popup.outerHeight < screen.availHeight)
+          {
+            popup.moveTo(0,0);
+            popup.resizeTo(screen.availWidth, screen.availHeight);
+          }
+        document.getElementById('text').addEventListener('keyup', e => {
+          console.log('Caret at: ', e.target.selectionStart)
+        })
         function openCity(evt, cityName) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
