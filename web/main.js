@@ -63,14 +63,13 @@ function selectAllBtn(){
 	document.execCommand("selectAll")
 }
 
-<<<<<<< HEAD
 // Run
 function runBtn(){
 	var path = document.getElementById("filePath").innerHTML
 	var content = document.getElementById("analysis_content").value
 	eel.apiRun([path,content])(aux_runBtn)
 }
-=======
+
 function background1() {
             document.body.style.backgroundImage = "url(img/bg-img/BLUE.png)"
           }
@@ -83,7 +82,6 @@ function background1() {
             document.body.style.backgroundImage = "url(img/bg-img/GREEN.png)"
           }
 
->>>>>>> 756019d2da96546316e8551ec5afde3af5504761
 
 function aux_runBtn(data){
 	document.getElementById("ErrorText").value = data[0]
