@@ -1,14 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Source+Code+Pro&display=swap');
 @import 'css/bootstrap.min.css';
 
-html,body{ margin:0; padding:0; height:100%; width:100%; }
-#full-size{
-  height:100%;
-  width:100%;
-  overflow:auto; /* or overflow:auto; if you want scrollbars */
-}
+
 body {
-    width: max-content;
     background-image: url(img/bg-img/GREEN.png);
     background-size:cover;
     background-position: center;
