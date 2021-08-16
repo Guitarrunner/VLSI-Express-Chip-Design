@@ -86,5 +86,6 @@ function background1() {
 function aux_runBtn(data){
 	document.getElementById("ErrorText").value = data[0]
 	document.getElementById("WarningsText").value = data[1]
+	document.getElementById("InfoText").value = data[2]
 	document.getElementById("analysis_content").value = "Type analysis"
 }

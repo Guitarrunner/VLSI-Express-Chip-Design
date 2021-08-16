@@ -10,6 +10,7 @@ import git
 import io
 import pyqrcode
 import eel
+import datetime
 from fabric.api import *
 from tkinter import *
 from io import IncrementalNewlineDecoder
@@ -111,8 +112,13 @@ def createCommand(analysisType,fileName):
     return commands
 
 def runCommand(commands):
-    # Vagrant connection
+    # Info Log
     print("[INFO] Starting Vagrant\n")
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Starting Vagrant\n")
+    f.close()
+
+    # Vagrant connection
     v = vagrant.Vagrant()
     v.up()
     env.hosts = [v.user_hostname_port()]
@@ -130,6 +136,11 @@ def runCommand(commands):
                 print("\n[ERROR] The analysis failed at "+ command[0]+", check the log.txt for errors")
                 break
     print("\n[INFO] Exiting Vagrant\n")
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Exiting Vagrant\n")
+    f.close()
+
 
 def inputValidation(parameters):
 
@@ -346,6 +357,12 @@ def apiOpenFile():
     # Content
     text = open(filePath,'r').read()
     print("[INFO] Open file completed")
+    
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Open file completed\n")
+    f.close()
+
     return [text,os.path.basename(filePath),filePath]
 
 @eel.expose
@@ -361,6 +378,12 @@ def apiSaveAs(content):
     file.write(content)
     file.close()
     print("[INFO] Save as completed")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Save as completed\n")
+    f.close()
+
     return [os.path.basename(filePath),filePath]
 
 @eel.expose
@@ -370,6 +393,11 @@ def apiSave(content):
     file.close()
     print("[INFO] Save completed")
 
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Save completed\n")
+    f.close()
+
 @eel.expose
 def apiRun(data):
     filePath = data[0]
@@ -377,7 +405,8 @@ def apiRun(data):
     workflow(filePath,arguments)
     log = open('log.txt','r').read()
     warnings = open('summary.txt','r').read()
-    return [log,warnings]
+    info = open('info.txt','r').read()
+    return [log,warnings,info]
 
 # Verification for update
 try:
@@ -393,25 +422,57 @@ try:
     #print(remoteTag)                      
 
     if str(repoTag) != str(remoteTag):
+        # Info Log
+        f = open('info.txt','a')
+        f.write(str(datetime.datetime.now()) + " There is a new update.\n")
+        f.close()
         print("[INFO] There is a new update.")
  
 except:
-    print("[INFO] Not access to internet.")
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Could not check version\n")
+    f.close()
+    print("[INFO] Could not check version")
 
 # Script
 if sys.argv[1] == "-g":
     # Starting Gui
     print("[INFO] Starting gui")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Starting gui\n")
+    f.close()
+
     eel.init('web')
     eel.start('index.html', size=(1000, 600))
 
 elif sys.argv[1] == "-t":
     print("[INFO] Starting conection ssh with vagrant")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Starting conection ssh with vagrant\n")
+    f.close()
+
     os.system("vagrant ssh")
 
 elif sys.argv[1] == "-i":
     print("[INFO] You have just entered interactive mode\n")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " You have just entered interactive mode\n")
+    f.close()
+
     print("[INFO] Starting Vagrant\n")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Starting Vagrant\n")
+    f.close()
+
     v = vagrant.Vagrant()
     v.up()
     env.hosts = [v.user_hostname_port()]
@@ -423,6 +484,11 @@ elif sys.argv[1] == "-i":
 
         if userInput == "exit":
             print("\n[INFO] Exiting Vagrant\n")
+
+            # Info Log
+            f = open('info.txt','a')
+            f.write(str(datetime.datetime.now()) + " Exiting Vagrant\n")
+            f.close()
             break
 
         elif userInput == "help":

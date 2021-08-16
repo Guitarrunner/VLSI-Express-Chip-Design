@@ -1,0 +1,5 @@
+2021-08-15 18:36:23.553738 Starting gui
+2021-08-15 18:37:15.438484 Starting gui
+2021-08-15 18:37:28.666869Open file completed
+2021-08-15 18:37:35.150335Starting Vagrant
+2021-08-15 18:37:40.244981Exiting Vagrant
