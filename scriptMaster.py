@@ -348,11 +348,13 @@ def api(data):
 
 @eel.expose
 def apiOpenFile():
-    # Get path 
-    root = Tk()
+    # Get path
+    print("[INFO] prueba")
+    root = tkinter.Tk()
     root.withdraw()
     root.update()
     filePath = tkinter.filedialog.askopenfilename(defaultextension=".txt", filetypes=[("All Files", "*.*"), ("Text Documents", "*.txt")])
+    root.update()
     root.destroy()
     # Content
     text = open(filePath,'r').read()
