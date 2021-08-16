@@ -374,6 +374,7 @@ def apiSaveAs(content):
     root.withdraw()
     root.update()
     filePath = tkinter.filedialog.asksaveasfilename(defaultextension=".v")
+    root.update()
     root.destroy()
     # Content
     file = open(filePath,'w')
