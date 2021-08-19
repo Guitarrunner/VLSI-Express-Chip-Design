@@ -106,6 +106,7 @@
           </div>
 
           <textarea id="content_text" rows="8" cols="30" class="lined-textarea"></textarea>
+          
             
             <div class="tab">
                 <button class="tablinks" onclick="openCity(event, 'Info')">Info</button>
@@ -129,7 +130,20 @@
 
       <script>
 
-          
+
+
+        var textareas = document.getElementsByTagName('textarea');
+        var count = textareas.length;
+        for(var i=0;i<count;i++){
+            textareas[i].onkeydown = function(e){
+                if(e.keyCode==9 || e.which==9){
+                    e.preventDefault();
+                    var s = this.selectionStart;
+                    this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+                    this.selectionEnd = s+1; 
+                }
+            }
+        }
 
         
         var popup = window.open("your_url", "popup", "fullscreen");
