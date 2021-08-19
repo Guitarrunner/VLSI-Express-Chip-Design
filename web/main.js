@@ -9,6 +9,7 @@ function openFile(){
 
 function aux_openFile(text){
 	document.getElementById("content_text").value = text[0]
+	document.querySelector('.CodeMirror').CodeMirror.setValue(text[0])
 	document.getElementById("fileName").innerHTML = text[1]
 	document.getElementById("filePath").innerHTML = text[2]
 }

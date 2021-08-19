@@ -15,9 +15,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <link rel="stylesheet" href="/highlight/styles/vs2015.min.css">
-    <script src="/highlight/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    
+    
+    <link rel="stylesheet" href="../highlight/lib/codemirror.css">
+    <script src="../highlight/lib/codemirror.js"></script>
+    <script src="../highlight/addon/edit/matchbrackets.js"></script>
+    <script src="../highlight/verilog.js"></script>
+    <style>.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+
+
 
 </head>
 <body>
@@ -105,7 +111,8 @@
             <p id="filePath" style="display: none;"></p>
           </div>
 
-          <textarea id="content_text" rows="8" cols="30" class="lined-textarea"></textarea>
+          <textarea id="content_text" name="content_text" rows="8" cols="100" style="width: 300px;"></textarea>
+
           
             
             <div class="tab">
@@ -144,6 +151,20 @@
                 }
             }
         }
+
+
+        var editor = CodeMirror.fromTextArea(document.getElementById("content_text"), {
+          lineNumbers: true,
+          matchBrackets: true,
+          backgroundColor: "#4A4C4B",
+          mode: {
+            name: "verilog",
+            noIndentKeywords: ["package"]
+          }
+        });
+
+        
+        
 
         
         var popup = window.open("your_url", "popup", "fullscreen");

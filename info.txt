@@ -3,3 +3,107 @@
 2021-08-15 18:37:28.666869Open file completed
 2021-08-15 18:37:35.150335Starting Vagrant
 2021-08-15 18:37:40.244981Exiting Vagrant
+2021-08-18 21:53:23.631723 Could not check version
+2021-08-18 21:53:23.632385 Starting gui
+2021-08-18 21:53:55.879578 Open file completed
+2021-08-18 23:55:02.215362 Could not check version
+2021-08-18 23:55:02.216189 Starting gui
+2021-08-18 23:57:01.268028 Could not check version
+2021-08-18 23:57:01.268735 Starting gui
+2021-08-18 23:58:13.537555 Could not check version
+2021-08-18 23:58:13.538240 Starting gui
+2021-08-18 23:58:57.520873 Could not check version
+2021-08-18 23:58:57.521635 Starting gui
+2021-08-18 23:59:50.648440 Could not check version
+2021-08-18 23:59:50.649105 Starting gui
+2021-08-19 00:01:33.173425 Could not check version
+2021-08-19 00:01:33.174074 Starting gui
+2021-08-19 00:01:49.027156 Could not check version
+2021-08-19 00:01:49.027802 Starting gui
+2021-08-19 00:02:15.343586 Open file completed
+2021-08-19 00:02:29.228895 Open file completed
+2021-08-19 00:05:20.678930 Could not check version
+2021-08-19 00:05:20.679894 Starting gui
+2021-08-19 00:05:50.956002 Could not check version
+2021-08-19 00:05:50.956775 Starting gui
+2021-08-19 00:06:00.682620 Could not check version
+2021-08-19 00:06:00.683110 Starting gui
+2021-08-19 00:06:19.270944 Open file completed
+2021-08-19 00:07:40.217928 Could not check version
+2021-08-19 00:07:40.218802 Starting gui
+2021-08-19 00:08:01.273787 Open file completed
+2021-08-19 00:09:12.803020 Could not check version
+2021-08-19 00:09:12.803781 Starting gui
+2021-08-19 00:09:39.106410 Could not check version
+2021-08-19 00:09:39.107190 Starting gui
+2021-08-19 00:13:10.232427 Could not check version
+2021-08-19 00:13:10.233114 Starting gui
+2021-08-19 00:14:29.542346 Could not check version
+2021-08-19 00:14:29.543058 Starting gui
+2021-08-19 00:15:22.244925 Could not check version
+2021-08-19 00:15:22.245706 Starting gui
+2021-08-19 00:22:03.195631 Could not check version
+2021-08-19 00:22:03.197494 Starting gui
+2021-08-19 10:11:16.891881 Could not check version
+2021-08-19 10:11:16.892927 Starting gui
+2021-08-19 10:11:42.835384 Could not check version
+2021-08-19 10:11:42.836137 Starting gui
+2021-08-19 10:11:59.500499 Open file completed
+2021-08-19 10:12:36.301860 Could not check version
+2021-08-19 10:12:36.303009 Starting gui
+2021-08-19 10:16:25.492996 Could not check version
+2021-08-19 10:16:25.495193 Starting gui
+2021-08-19 10:17:16.511250 Could not check version
+2021-08-19 10:17:16.512553 Starting gui
+2021-08-19 10:17:40.874101 Could not check version
+2021-08-19 10:17:40.874968 Starting gui
+2021-08-19 10:19:33.114649 Could not check version
+2021-08-19 10:19:33.115379 Starting gui
+2021-08-19 10:21:38.186625 Could not check version
+2021-08-19 10:21:38.187889 Starting gui
+2021-08-19 10:23:40.757451 Could not check version
+2021-08-19 10:23:40.758410 Starting gui
+2021-08-19 10:24:05.713857 Could not check version
+2021-08-19 10:24:05.714500 Starting gui
+2021-08-19 10:27:41.961846 Could not check version
+2021-08-19 10:27:41.963063 Starting gui
+2021-08-19 10:29:28.593879 Could not check version
+2021-08-19 10:29:28.594394 Starting gui
+2021-08-19 10:30:13.858539 Could not check version
+2021-08-19 10:30:13.859052 Starting gui
+2021-08-19 10:32:51.891212 Could not check version
+2021-08-19 10:32:51.892596 Starting gui
+2021-08-19 10:33:19.057341 Could not check version
+2021-08-19 10:33:19.057767 Starting gui
+2021-08-19 10:35:48.541061 Could not check version
+2021-08-19 10:35:48.541926 Starting gui
+2021-08-19 10:35:58.908879 Open file completed
+2021-08-19 10:37:20.132460 Could not check version
+2021-08-19 10:37:20.133294 Starting gui
+2021-08-19 10:37:30.778261 Open file completed
+2021-08-19 10:37:49.792003 Could not check version
+2021-08-19 10:37:49.793343 Starting gui
+2021-08-19 10:37:58.819677 Open file completed
+2021-08-19 10:38:39.131359 Could not check version
+2021-08-19 10:38:39.132003 Starting gui
+2021-08-19 10:38:50.399909 Open file completed
+2021-08-19 10:40:24.688862 Could not check version
+2021-08-19 10:40:24.690757 Starting gui
+2021-08-19 10:40:46.232818 Open file completed
+2021-08-19 10:41:42.226589 Could not check version
+2021-08-19 10:41:42.228381 Starting gui
+2021-08-19 10:41:58.295728 Open file completed
+2021-08-19 10:43:21.923799 Could not check version
+2021-08-19 10:43:21.924775 Starting gui
+2021-08-19 10:44:24.398064 Could not check version
+2021-08-19 10:44:24.398903 Starting gui
+2021-08-19 10:46:00.539449 Could not check version
+2021-08-19 10:46:00.543778 Starting gui
+2021-08-19 10:46:32.706006 Could not check version
+2021-08-19 10:46:32.706958 Starting gui
+2021-08-19 10:47:06.425107 Could not check version
+2021-08-19 10:47:06.426966 Starting gui
+2021-08-19 10:48:33.426985 Could not check version
+2021-08-19 10:48:33.430121 Starting gui
+2021-08-19 10:53:48.987217 Could not check version
+2021-08-19 10:53:48.989131 Starting gui
