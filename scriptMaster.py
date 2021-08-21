@@ -404,7 +404,8 @@ def apiSave(content):
 @eel.expose
 def apiRun(data):
     filePath = data[0]
-    arguments = data[1].split(" ")
+    arguments = data[1]
+    print(arguments)
     workflow(filePath,arguments)
     log = open('log.txt','r').read()
     warnings = open('summary.txt','r').read()

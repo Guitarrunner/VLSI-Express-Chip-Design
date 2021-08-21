@@ -8,14 +8,14 @@ function openFile(){
 }
 
 function aux_openFile(text){
-	document.getElementById("content_text").value = text[0]
+	//document.getElementById("content_text").value = text[0]
 	document.querySelector('.CodeMirror').CodeMirror.setValue(text[0])
 	document.getElementById("fileName").innerHTML = text[1]
 	document.getElementById("filePath").innerHTML = text[2]
 }
 
 function saveAs(){
-	var content = document.getElementById("content_text").value
+	var content = document.querySelector('.CodeMirror').CodeMirror.getValue()
 	eel.apiSaveAs(content)(aux_saveAs)
 }
 
@@ -26,18 +26,16 @@ function aux_saveAs(fileName){
 
 
 function save(){
-	var content = document.getElementById("content_text").value
+	var content = document.querySelector('.CodeMirror').CodeMirror.getValue()
 	var path = document.getElementById("filePath").innerHTML
 	eel.apiSave([content,path])
 }
 
 function newDoc(){
-	document.getElementById("content_text").value = ""
+	document.querySelector('.CodeMirror').CodeMirror.setValue("")
 	document.getElementById("fileName").innerHTML = "Untitled Document"
 	document.getElementById("filePath").innerHTML = ""
 }
-
-
 
 // Navbar Edit
 function undoBtn(){
@@ -66,9 +64,23 @@ function selectAllBtn(){
 
 // Run
 function runBtn(){
+    var analysis1 = document.getElementById("analysis1")
+	var analysis2 = document.getElementById("analysis2")
+	var analysis3 = document.getElementById("analysis3")
+	var analysis4 = document.getElementById("analysis4")
+	var analysis5 = document.getElementById("analysis5")
+	var analysis = [analysis1,analysis2,analysis3,analysis4,analysis5]
+	
+	var selection = []
+	for(let i=0;i < analysis.length;i++){
+		if(analysis[i].checked == true){
+			selection.push(analysis[i].value)
+		}
+	}
+
 	var path = document.getElementById("filePath").innerHTML
-	var content = document.getElementById("analysis_content").value
-	eel.apiRun([path,content])(aux_runBtn)
+	//var content = document.getElementById("analysis_content").value
+	eel.apiRun([path,selection])(aux_runBtn)
 }
 
 function background1() {
@@ -89,4 +101,8 @@ function aux_runBtn(data){
 	document.getElementById("WarningsText").value = data[1]
 	document.getElementById("InfoText").value = data[2]
 	document.getElementById("analysis_content").value = "Type analysis"
+}
+
+function caret(){
+	eel.api("IS TYPING\n")
 }
