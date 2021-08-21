@@ -116,23 +116,23 @@
 .cm-link {text-decoration: underline;}
 .cm-strikethrough {text-decoration: line-through;}
 
-.cm-s-default .cm-keyword {color: rgb(3, 160, 3);}
+.cm-s-default .cm-keyword {color: #47CCC4;}
 .cm-s-default .cm-atom {color: #219;}
-.cm-s-default .cm-number {color: yellow;}
-.cm-s-default .cm-def {color: rgb(24, 179, 4);}
+.cm-s-default .cm-number {color: #CEFF44;}
+.cm-s-default .cm-def {color: #abff32;}
 .cm-s-default .cm-variable,
 .cm-s-default .cm-punctuation,
 .cm-s-default .cm-property,
 .cm-s-default .cm-operator {}
 .cm-s-default .cm-variable-2 {color: #05a;}
 .cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}
-.cm-s-default .cm-comment {color: rgb(170, 0, 0);}
+.cm-s-default .cm-comment {color: #FF5CB7;}
 .cm-s-default .cm-string {color: #a11;}
 .cm-s-default .cm-string-2 {color: #f50;}
-.cm-s-default .cm-meta {color: rgb(125, 243, 89);}
+.cm-s-default .cm-meta {color: #FFE787;}
 .cm-s-default .cm-qualifier {color: rgb(245, 8, 8);}
 .cm-s-default .cm-builtin {color: rgb(53, 3, 168);}
-.cm-s-default .cm-bracket {color: yellow;}
+.cm-s-default .cm-bracket {color: #7EEBEA;}
 .cm-s-default .cm-tag {color: #170;}
 .cm-s-default .cm-attribute {color: #00c;}
 .cm-s-default .cm-hr {color: #999;}
