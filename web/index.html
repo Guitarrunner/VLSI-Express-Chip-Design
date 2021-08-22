@@ -23,8 +23,17 @@
     <script src="../highlight/verilog.js"></script>
     <style>.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
 
+
+    <title>jQuery UI Dialog - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+
 </head>
 <body>
+  
   <img src="http://i.stack.imgur.com/SBv4T.gif" alt="this slowpoke moves"  width="250" id="gif" style="display: none;" />
   <div class="bs-example">
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: black;">
@@ -90,7 +99,8 @@
                 <div class="dropdown-menu" style=" padding: 10px;width: 200px;">
                   
                   <input type="checkbox" id="analysis1" name="analysis1" value="-l">
-                  <label for="analysis"> Style Linter</label><br>
+                  <input id='analysis1Hidden' type='hidden' value='No' name='analysis1'>
+                  <label for="analysis1"> Style Linter</label><br>
                   <input type="checkbox" id="analysis2" name="analysis2" value="-s">
                   <label for="analysis2"> Formatter</label><br>
                   <input type="checkbox" id="analysis3" name="analysis3" value="-p">
@@ -107,6 +117,13 @@
             </ul>
         </div>
     </nav>
+
+<! -- Alert message for analysis method unselected -->
+<div id="dialog"  title="Analysis Method Selector">
+  </p hidden>Analysis method selection is requiered to complete the process</p>
+</div>
+
+
 </div>
     <div class="row">
         <div class="column">

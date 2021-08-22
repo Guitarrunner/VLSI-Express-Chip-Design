@@ -64,12 +64,20 @@ function selectAllBtn(){
 
 // Run
 function runBtn(){
+	
     var analysis1 = document.getElementById("analysis1")
 	var analysis2 = document.getElementById("analysis2")
 	var analysis3 = document.getElementById("analysis3")
 	var analysis4 = document.getElementById("analysis4")
 	var analysis5 = document.getElementById("analysis5")
 	var analysis = [analysis1,analysis2,analysis3,analysis4,analysis5]
+
+	if(analysis[0].checked == false && analysis[1].checked == false && analysis[2].checked == false && analysis[3].checked == false && analysis[4].checked == false){
+		$( function() {
+			$( "#dialog" ).dialog();
+		  } );
+		return false;
+	}
 	
 	var selection = []
 	for(let i=0;i < analysis.length;i++){
