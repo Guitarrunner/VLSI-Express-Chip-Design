@@ -40,4 +40,4 @@ bazel run -c opt :install -- ~/bin
 bazel test -c opt //...
 
 # SCRIPT
-cp /vagrant_data/script.sh /home/vagrant
+cp /vagrant_data/vlsi_for_vagrant/script.py /home/vagrant
