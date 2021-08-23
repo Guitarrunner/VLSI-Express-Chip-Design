@@ -1,0 +1,5 @@
+1:8 Declared module does not match the first dot-delimited component of file name: "fileMaster"
+13:1 Remove trailing spaces.
+14:5 Use 'always_comb' instead of 'always @*'.
+17:1 Use spaces, not tabs.
+17:9 Remove trailing spaces.
