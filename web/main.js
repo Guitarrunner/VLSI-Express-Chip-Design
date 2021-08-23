@@ -22,13 +22,20 @@ function saveAs(){
 function aux_saveAs(fileName){
 	document.getElementById("fileName").innerHTML = fileName[0]
 	document.getElementById("filePath").innerHTML = fileName[1]
+	document.getElementById("InfoText").value = "File saved"
 }
 
 
 function save(){
-	var content = document.querySelector('.CodeMirror').CodeMirror.getValue()
-	var path = document.getElementById("filePath").innerHTML
-	eel.apiSave([content,path])
+
+	if(document.getElementById("fileName").innerHTML == "Untitled document"){
+		saveAs()
+	}else{
+		var content = document.querySelector('.CodeMirror').CodeMirror.getValue()
+		var path = document.getElementById("filePath").innerHTML
+		eel.apiSave([content,path])
+		document.getElementById("InfoText").value = "File saved"
+	}
 }
 
 function newDoc(){
