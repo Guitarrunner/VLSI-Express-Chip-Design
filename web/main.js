@@ -64,6 +64,8 @@ function selectAllBtn(){
 
 // Run
 function runBtn(){
+
+	document.getElementById("InfoText").value = "Analysing in process"
 	
     var analysis1 = document.getElementById("analysis1")
 	var analysis2 = document.getElementById("analysis2")
