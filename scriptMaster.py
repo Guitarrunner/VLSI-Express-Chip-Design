@@ -347,6 +347,20 @@ def api(data):
     print(data)
 
 @eel.expose
+def apiOpenExample(filename):
+    filePath = './samples/'+filename
+    # Content
+    text = open(filePath,'r').read()
+    print("[INFO] Open file completed")
+
+    # Info Log
+    f = open('info.txt','a')
+    f.write(str(datetime.datetime.now()) + " Open example completed\n")
+    f.close()
+
+    return [text,filename,filePath]
+
+@eel.expose
 def apiOpenFile():
     # Get path
     print("[INFO] prueba")

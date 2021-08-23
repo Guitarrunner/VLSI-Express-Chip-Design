@@ -7,6 +7,10 @@ function openFile(){
 	eel.apiOpenFile()(aux_openFile)
 }
 
+function openExample(filename){
+	eel.apiOpenExample(filename)(aux_openFile)
+}
+
 function aux_openFile(text){
 	//document.getElementById("content_text").value = text[0]
 	document.querySelector('.CodeMirror').CodeMirror.setValue(text[0])
