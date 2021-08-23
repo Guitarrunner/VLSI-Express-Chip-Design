@@ -87,12 +87,24 @@ The types of analysis available are:
 For more information on the analysis and the flags for each analysis, you can consult [verible].
 
 ## Examples
-* Analysis only
+* Combined analysis
 ```bash
 # Run in Terminal
 python scriptMaster.py /home/racso/Example1.v -s -l -f
 ```
 
+* Flags\
+In this case the --error_limit flag is used for syntax parsing 
+```bash
+# Run in Terminal
+python scriptMaster.py /home/racso/Example1.v -s --error_limit=2
+```
+
+* Combined analysis and flags
+```bash
+# Run in Terminal
+python scriptMaster.py /home/racso/Example1.v -s --error_limit=2 -l --autofix=yes
+```
 
 
 
