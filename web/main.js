@@ -65,32 +65,42 @@ function selectAllBtn(){
 // Run
 function runBtn(){
 
-	document.getElementById("InfoText").value = "Analysing in process"
-	
-    var analysis1 = document.getElementById("analysis1")
-	var analysis2 = document.getElementById("analysis2")
-	var analysis3 = document.getElementById("analysis3")
-	var analysis4 = document.getElementById("analysis4")
-	var analysis5 = document.getElementById("analysis5")
-	var analysis = [analysis1,analysis2,analysis3,analysis4,analysis5]
+	if (document.getElementById("analysis_content").value == ""){
+		
+		var analysis1 = document.getElementById("analysis1")
+		var analysis2 = document.getElementById("analysis2")
+		var analysis3 = document.getElementById("analysis3")
+		var analysis4 = document.getElementById("analysis4")
+		var analysis5 = document.getElementById("analysis5")
+		var analysis = [analysis1,analysis2,analysis3,analysis4,analysis5]
 
-	if(analysis[0].checked == false && analysis[1].checked == false && analysis[2].checked == false && analysis[3].checked == false && analysis[4].checked == false){
-		$( function() {
-			$( "#dialog" ).dialog();
-		  } );
-		return false;
-	}
-	
-	var selection = []
-	for(let i=0;i < analysis.length;i++){
-		if(analysis[i].checked == true){
-			selection.push(analysis[i].value)
+		if(analysis[0].checked == false && analysis[1].checked == false && analysis[2].checked == false && analysis[3].checked == false && analysis[4].checked == false){
+			$( function() {
+				$( "#dialog" ).dialog();
+			} );
+			return false;
 		}
-	}
+		
+		document.getElementById("InfoText").value = "Analysing in process"
 
-	var path = document.getElementById("filePath").innerHTML
-	//var content = document.getElementById("analysis_content").value
-	eel.apiRun([path,selection])(aux_runBtn)
+		var selection = []
+		for(let i=0;i < analysis.length;i++){
+			if(analysis[i].checked == true){
+				selection.push(analysis[i].value)
+			}
+		}
+
+		var path = document.getElementById("filePath").innerHTML
+		//var content = document.getElementById("analysis_content").value
+		eel.apiRun([path,selection])(aux_runBtn)
+
+	}else{
+		let analysisFlow = document.getElementById("analysis_content").value
+		var flow = analysisFlow.split(" ")
+		var path = document.getElementById("filePath").innerHTML
+		document.getElementById("analysis_content").value = ""
+		eel.apiRun([path,flow])(aux_runBtn)
+	}
 }
 
 function background1() {
