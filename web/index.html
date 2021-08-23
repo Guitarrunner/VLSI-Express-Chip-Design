@@ -66,8 +66,6 @@
 
                       <a href="#" class="dropdown-item" onclick="copyBtn()"><i class="fas fa-copy"></i> Copy</a>
 
-                      <a href="#" class="dropdown-item" onclick="pasteBtn()"><i class="fas fa-paste"></i> Paste</a>
-
                       <a href="#" class="dropdown-item" onclick="selectAllBtn()"> Select All</a>
 
                   </div>
@@ -117,7 +115,6 @@
             </form>
 
             <button onclick=" window.open('https://github.com/Guitarrunner/VLSI-Express-Chip-Design', '_blank'); return false;" target="_blank" style="background-color: transparent; border-color: transparent;"><i class="far fa-question-circle" style="color: white;"></i></button>
- 
             </ul>
         </div>
     </nav>
@@ -132,10 +129,10 @@
           <p style="width: 500px;color: white;background-color: #4A4C4B;"></p>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-primary" onclick="runBtn()" style=background-color:#3D3D3D;border:#3D3D3D><i class="fas fa-play"></i></button>
-                <button type="button" class="btn btn-primary" style=background-color:#3D3D3D;border:#3D3D3D><i class="fas fa-search"></i></i></button>
+                <button type="button" class="btn btn-primary"  onclick="save()"  style=background-color:#3D3D3D;border:#3D3D3D><i class="fas fa-save"></i></i></button>
                 <button type="button" class="btn btn-primary" onclick="undoBtn()" style=background-color:#3D3D3D;border:#3D3D3D><i class="fas fa-undo"></i></button>
                 <button type="button" class="btn btn-primary" onclick="redoBtn()" style=background-color:#3D3D3D;border:#3D3D3D><i class="fas fa-redo-alt"></i></button>
-              </div>
+              </div>    
         </div>
         <label rows="1" class="rowcols" id="rowcols" style="padding-left: 1220px;" name="rowcols" >Line:1 | Column:1 </label> 
         <div class="column">
