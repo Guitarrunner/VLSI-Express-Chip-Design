@@ -450,7 +450,7 @@ if sys.argv[1] == "-g":
     f.close()
 
     eel.init('web')
-    eel.start('welcome.html', size=(1000, 600))
+    eel.start('index.html', size=(1000, 600))
 
 elif sys.argv[1] == "-t":
     print("[INFO] Starting conection ssh with vagrant")
