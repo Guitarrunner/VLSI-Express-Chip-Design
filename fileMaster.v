@@ -1,22 +1,11 @@
-module Ajuste (A, FlagC, FlagZ, X);
+module comb (
+    input a, 
+    input b,
+    output wire out_assign,
+    output reg out_alwaysblock
+);
 
-//Ajusta mantisa si FlagC y FlagZ están encendidos
-//BW = 23 bits
-
-    input wire [22:0] A;
-    input wire FlagC, FlagZ;
-    output reg [22:0] X;
-
-    wire [22:0] D;
-
-    assign D = A >> 1'd1;
+    assign out_assign = a & b;
+    always @(*) out_alwaysblock = a & b;
     
-    always @(*) begin
-     if (FlagZ && FlagC | ~FlagZ && FlagC)
-
-	X = D ;	
-
-     else
-    X = A;
-    end
 endmodule

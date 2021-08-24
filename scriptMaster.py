@@ -358,7 +358,7 @@ def apiOpenExample(filename):
     f.write(str(datetime.datetime.now()) + " Open example completed\n")
     f.close()
 
-    return [text,filename,filePath]
+    return [text,filename,'samples/'+filename]
 
 @eel.expose
 def apiOpenFile():
@@ -418,6 +418,7 @@ def apiSave(content):
 @eel.expose
 def apiRun(data):
     filePath = data[0]
+    print(filePath)
     arguments = data[1]
     print(arguments)
     workflow(filePath,arguments)
