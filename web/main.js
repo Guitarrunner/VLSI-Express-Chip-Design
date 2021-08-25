@@ -106,6 +106,7 @@ function runBtn(){
 		eel.apiRun([path,selection])(aux_runBtn)
 
 	}else{
+		document.getElementById("InfoText").value = "Analysing in process"
 		let analysisFlow = document.getElementById("analysis_content").value
 		var flow = analysisFlow.split(" ")
 		var path = document.getElementById("filePath").innerHTML
